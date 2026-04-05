@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Receitas - Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css"
+    integrity="sha512-3i5q9+5X5rqzJCaN6KptCKcD5STo5EasbF4K5GvKwTd/u1xNQUY7XVwL3kEc3V7mA3w3P4S592+NclvJP5cUEQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../style/styles.css" />
+</head>
+
+<body>
+  <section class="app-screen">
+    <header class="topbar">
+      <div class="brand-inline">
+        <div class="brand-inline__icon"><i class="fa-solid fa-hat-chef"></i></div>
+        <div>
+          <strong>Portal de Receitas</strong>
+          <span>Chef Profissional</span>
+        </div>
+      </div>
+
+      <nav class="topbar-nav">
+        <a href="dashboard.html"><i class="fa-solid fa-grip"></i> Dashboard</a>
+        <a href="entusiasta.html"><i class="fa-solid fa-wand-sparkles"></i> IA</a>
+        <a href="nova-receita.html" class="button button--nav">Nova Receita</a>
+        <a href="chef-setup.html"><i class="fa-regular fa-user"></i> Guilherme Hinori</a>
+        <a href="index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+      </nav>
+    </header>
+
+    <main class="dashboard-layout">
+      <section class="hero-panel">
+        <div>
+          <h2>Ola, Guilherme Hinori! <span>👋</span></h2>
+          <p>Gerencie suas receitas e acompanhe o desempenho</p>
+        </div>
+        <a href="nova-receita.html" class="button button--primary">+ Nova Receita</a>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div>
+            <span>Receitas Publicadas</span>
+            <strong>12</strong>
+          </div>
+          <div class="stat-icon stat-icon--blue"><i class="fa-regular fa-book-open"></i></div>
+        </article>
+        <article class="stat-card">
+          <div>
+            <span>Total de Visualizacoes</span>
+            <strong>8.420</strong>
+          </div>
+          <div class="stat-icon stat-icon--pink"><i class="fa-regular fa-eye"></i></div>
+        </article>
+        <article class="stat-card">
+          <div>
+            <span>Total de Curtidas</span>
+            <strong>2.184</strong>
+          </div>
+          <div class="stat-icon stat-icon--red"><i class="fa-regular fa-heart"></i></div>
+        </article>
+        <article class="stat-card">
+          <div>
+            <span>Media de Curtidas</span>
+            <strong>182</strong>
+          </div>
+          <div class="stat-icon stat-icon--orange"><i class="fa-solid fa-arrow-trend-up"></i></div>
+        </article>
+      </section>
+
+      <section class="empty-state">
+        <div>
+          <div class="empty-state__icon"><i class="fa-regular fa-book-open"></i></div>
+          <h3>Todas as Suas Receitas (0)</h3>
+          <p>Nenhuma receita ainda. Comece compartilhando sua primeira receita com a comunidade.</p>
+          <a href="nova-receita.html" class="button button--primary">+ Criar Primeira Receita</a>
+        </div>
+      </section>
+    </main>
+  </section>
+</body>
+
+</html>
+

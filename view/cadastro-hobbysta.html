@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de receitas - Cadastro Hobbysta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css"
+    integrity="sha512-3i5q9+5X5rqzJCaN6KptCKcD5STo5EasbF4K5GvKwTd/u1xNQUY7XVwL3kEc3V7mA3w3P4S592+NclvJP5cUEQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../style/styles.css" />
+</head>
+
+<body>
+  <!-- Estrutura principal da tela de cadastro do hobbysta -->
+  <main class="auth-shell auth-shell--fan">
+    <!-- Painel visual com contexto do perfil hobbysta -->
+    <section class="auth-panel auth-panel--intro auth-panel--intro-fan">
+      <a href="login-hobbysta.html" class="auth-back"><i class="fa-solid fa-arrow-left"></i> Voltar para login</a>
+      <div class="auth-badge auth-badge--logo"></div>
+      <h1>Cadastro Hobbysta</h1>
+      <p>Crie sua conta para salvar receitas, montar sua lista de favoritos e explorar o sistema.</p>
+      <ul class="auth-highlights">
+        <li>Conta simples e rapida</li>
+        <li>Receitas favoritas salvas</li>
+        <li>Experiencia personalizada</li>
+      </ul>
+    </section>
+    <!-- Painel com o formulário de criação de conta -->
+    <section class="auth-panel auth-panel--form">
+      <div class="auth-header">
+        <span class="auth-tag auth-tag--fan"><i class="fa-solid fa-user-plus"></i> Novo Hobbysta</span>
+        <h2>Crie sua conta</h2>
+        <p>Preencha seus dados para se cadastrar.</p>
+      </div>
+      <!-- Área reservada para mensagens vindas do backend -->
+      <div class="auth-alert auth-alert--fan" id="cadastro-hob-alert" hidden></div>
+      <!-- Formulário enviado ao backend PHP -->
+      <form class="auth-form auth-form--grid" method="POST" action="../php/cadastro.php">
+        <!-- Informa ao backend qual tipo de usuário está sendo cadastrado -->
+        <input type="hidden" name="tipo_usuario" value="hobbysta">
+        <div>
+          <label for="nome-hob">Nome</label>
+          <div class="input-icon"><i class="fa-regular fa-user"></i><input id="nome-hob" type="text" name="nome-hob"
+              placeholder="Seu nome" required /></div>
+        </div>
+        <div>
+          <label for="cad-email-hob">Email</label>
+          <div class="input-icon"><i class="fa-regular fa-envelope"></i><input id="cad-email-hob" type="email"
+              name="email-hob" placeholder="usuario@email.com" required /></div>
+        </div>
+        <div>
+          <label for="cad-senha-hob">Senha</label>
+          <div class="input-icon"><i class="fa-solid fa-lock"></i><input id="cad-senha-hob" type="password"
+              placeholder="Crie uma senha" name="senha-hob" required minlength="8" /></div>
+        </div>
+        <div>
+          <label for="cad-conf-hob">Confirmar senha</label>
+          <div class="input-icon"><i class="fa-solid fa-shield-heart"></i><input id="cad-conf-hob" type="password"
+              placeholder="Confirme a senha" name="confirmar-senha-hob" required minlength="8" /></div>
+        </div>
+        <button type="submit" class="button button--accent auth-submit auth-submit--full"><i
+            class="fa-solid fa-user-check"></i> Cadastrar</button>
+      </form>
+      <p class="auth-switch">Ja possui conta? <a href="login-hobbysta.html">Fazer login</a></p>
+    </section>
+  </main>
+  <!-- Script simples para exibir mensagens vindas dos parâmetros da URL -->
+  <script>
+    const paramsCadastroHob = new URLSearchParams(window.location.search);
+    const alertCadastroHob = document.getElementById('cadastro-hob-alert');
+    if (paramsCadastroHob.get('erro') === '1') {
+      alertCadastroHob.hidden = false;
+      alertCadastroHob.textContent = 'Preencha os campos corretamente, use um email valido e senha com pelo menos 8 caracteres.';
+    } else if (paramsCadastroHob.get('erro') === '2') {
+      alertCadastroHob.hidden = false;
+      alertCadastroHob.textContent = 'Ja existe um hobbysta cadastrado com esse email.';
+    } else if (paramsCadastroHob.get('erro') === '3') {
+      alertCadastroHob.hidden = false;
+      alertCadastroHob.textContent = 'Nao foi possivel concluir o cadastro agora. Tente novamente em instantes.';
+    }
+  </script>
+</body>
+
+</html>

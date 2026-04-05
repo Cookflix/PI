@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Receitas - Login Profissional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css"
+    integrity="sha512-3i5q9+5X5rqzJCaN6KptCKcD5STo5EasbF4K5GvKwTd/u1xNQUY7XVwL3kEc3V7mA3w3P4S592+NclvJP5cUEQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../style/styles.css" />
+</head>
+
+<body>
+  <!-- Estrutura principal da tela de login do profissional -->
+  <main class="auth-shell auth-shell--chef">
+    <!-- Painel visual com contexto do perfil profissional -->
+    <section class="auth-panel auth-panel--intro">
+      <a href="index.html" class="auth-back"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+      <div class="auth-badge auth-badge--logo"></div>
+      <h1>Login Profissional</h1>
+      <p>Entre para acessar suas ferramentas de chef, publicar receitas e acompanhar seu desempenho.</p>
+      <ul class="auth-highlights">
+        <li>Acesso ao painel profissional</li>
+        <li>Gerenciamento de receitas</li>
+        <li>Visualizacao de metricas</li>
+      </ul>
+    </section>
+    <!-- Painel com o formulário real de login -->
+    <section class="auth-panel auth-panel--form">
+      <div class="auth-header">
+        <span class="auth-tag"><i class="fa-solid fa-briefcase"></i> Chef Profissional</span>
+        <h2>Entre na sua conta</h2>
+        <p>Digite seu email e senha para continuar.</p>
+      </div>
+      <!-- Área reservada para mensagens de erro ou sucesso -->
+      <div class="auth-alert" id="login-prof-alert" hidden></div>
+      <!-- Formulário enviado ao backend PHP -->
+      <form class="auth-form" action="../php/login.php" method="POST">
+        <!-- Informa ao backend qual tipo de usuário está tentando entrar -->
+        <input type="hidden" name="tipo_usuario" value="profissional">
+        <label for="email-prof">Email</label>
+        <div class="input-icon"><i class="fa-regular fa-envelope"></i><input id="email-prof" type="email"
+            placeholder="chef@email.com" name="email-prof" required /></div>
+        <label for="senha-prof">Senha</label>
+        <div class="input-icon"><i class="fa-solid fa-lock"></i><input id="senha-prof" type="password"
+            placeholder="Digite sua senha" name="senha-prof" required /></div>
+        <button type="submit" class="button button--primary auth-submit"><i
+            class="fa-solid fa-arrow-right-to-bracket"></i> Entrar</button>
+      </form>
+      <p class="auth-switch">Ainda nao tem cadastro? <a href="cadastro-profissional.html">Criar conta
+          profissional</a></p>
+    </section>
+  </main>
+  <!-- Script simples para exibir mensagens vindas dos parâmetros da URL -->
+  <script>
+    const paramsProf = new URLSearchParams(window.location.search);
+    const alertProf = document.getElementById('login-prof-alert');
+    if (paramsProf.get('sucesso') === '1') {
+      alertProf.hidden = false;
+      alertProf.textContent = 'Cadastro realizado com sucesso. Agora faca seu login.';
+    } else if (paramsProf.get('erro') === '1') {
+      alertProf.hidden = false;
+      alertProf.textContent = 'Email ou senha do profissional invalidos.';
+    } else if (paramsProf.get('erro') === '2') {
+      alertProf.hidden = false;
+      alertProf.textContent = 'Nao foi possivel acessar agora. Verifique o banco e tente novamente.';
+    }
+  </script>
+</body>
+
+</html>

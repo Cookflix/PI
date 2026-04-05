@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Receitas - Cadastro Profissional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css"
+    integrity="sha512-3i5q9+5X5rqzJCaN6KptCKcD5STo5EasbF4K5GvKwTd/u1xNQUY7XVwL3kEc3V7mA3w3P4S592+NclvJP5cUEQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../style/styles.css" />
+</head>
+
+<body>
+  <!-- Estrutura principal da tela de cadastro do profissional -->
+  <main class="auth-shell auth-shell--chef">
+    <!-- Painel visual com contexto do perfil profissional -->
+    <section class="auth-panel auth-panel--intro">
+      <a href="login-profissional.html" class="auth-back"><i class="fa-solid fa-arrow-left"></i> Voltar para
+        login</a>
+      <div class="auth-badge auth-badge--logo"></div>
+      <h1>Cadastro Profissional</h1>
+      <p>Crie sua conta e tenha acesso ao ambiente completo para chefs e profissionais da culinaria.</p>
+      <ul class="auth-highlights">
+        <li>Perfil profissional personalizado</li>
+        <li>Cadastro de receitas e pratos</li>
+        <li>Organizacao do seu conteudo</li>
+      </ul>
+    </section>
+    <!-- Painel com o formulário de criação de conta -->
+    <section class="auth-panel auth-panel--form">
+      <div class="auth-header">
+        <span class="auth-tag"><i class="fa-solid fa-user-plus"></i> Novo Chef</span>
+        <h2>Crie sua conta</h2>
+        <p>Preencha seus dados para se cadastrar.</p>
+      </div>
+      <!-- Área reservada para mensagens vindas do backend -->
+      <div class="auth-alert" id="cadastro-prof-alert" hidden></div>
+      <!-- Formulário enviado ao backend PHP -->
+      <form class="auth-form auth-form--grid" method="POST" action="../php/cadastro.php">
+        <!-- Informa ao backend qual tipo de usuário está sendo cadastrado -->
+        <input type="hidden" name="tipo_usuario" value="profissional">
+        <div>
+          <label for="nome-prof">Nome</label>
+          <div class="input-icon"><i class="fa-regular fa-user"></i><input id="nome-prof" type="text"
+              placeholder="Seu nome" name="nome-prof" required /></div>
+        </div>
+        <div>
+          <label for="cad-email-prof">Email</label>
+          <div class="input-icon"><i class="fa-regular fa-envelope"></i><input id="cad-email-prof" type="email"
+              placeholder="chef@email.com" name="email-prof" required /></div>
+        </div>
+        <div>
+          <label for="cad-senha-prof">Senha</label>
+          <div class="input-icon"><i class="fa-solid fa-lock"></i><input id="cad-senha-prof" type="password"
+              placeholder="Crie uma senha" name="senha-prof" required minlength="8" /></div>
+        </div>
+        <div>
+          <label for="cad-conf-prof">Confirmar senha</label>
+          <div class="input-icon"><i class="fa-solid fa-shield-heart"></i><input id="cad-conf-prof" type="password"
+              placeholder="Confirme a senha" name="confirmar-senha-prof" required minlength="8" /></div>
+        </div>
+        <button type="submit" class="button button--primary auth-submit auth-submit--full"><i
+            class="fa-solid fa-user-check"></i> Cadastrar</button>
+      </form>
+      <p class="auth-switch">Ja possui conta? <a href="login-profissional.html">Fazer login</a></p>
+    </section>
+  </main>
+  <!-- Script simples para exibir mensagens vindas dos parâmetros da URL -->
+  <script>
+    const paramsCadastroProf = new URLSearchParams(window.location.search);
+    const alertCadastroProf = document.getElementById('cadastro-prof-alert');
+    if (paramsCadastroProf.get('erro') === '1') {
+      alertCadastroProf.hidden = false;
+      alertCadastroProf.textContent = 'Preencha os campos corretamente, use um email valido e senha com pelo menos 8 caracteres.';
+    } else if (paramsCadastroProf.get('erro') === '2') {
+      alertCadastroProf.hidden = false;
+      alertCadastroProf.textContent = 'Ja existe um profissional cadastrado com esse email.';
+    } else if (paramsCadastroProf.get('erro') === '3') {
+      alertCadastroProf.hidden = false;
+      alertCadastroProf.textContent = 'Nao foi possivel concluir o cadastro agora. Tente novamente em instantes.';
+    }
+  </script>
+</body>
+
+</html>
