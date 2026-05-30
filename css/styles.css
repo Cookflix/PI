@@ -1,0 +1,1202 @@
+﻿/* ==========================================================================
+   1. VARIÁVEIS GERAIS (PALETA DE CORES, SOMBRAS E ARREDONDAMENTOS)
+   ========================================================================== */
+:root {
+  --cream: #eef0df;
+  --paper: rgba(246, 248, 233, 0.94);
+  --paper-solid: #f6f8e9;
+  --mint: #c9e7d1;
+  --mint-2: #e1efd9;
+
+  --leaf: #6f8463;
+  --leaf-dark: #526247;
+  --olive: #aeb88a;
+  --olive-soft: #cbd889;
+  --lemon: #efd764;
+
+  --line: #bdc9aa;
+  --ink: #5d684f;
+  --muted: #8c987c;
+  --shadow-lg: 0 26px 70px rgba(78, 96, 67, 0.18);
+  --shadow-md: 0 16px 38px rgba(78, 96, 67, 0.13);
+  --shadow-sm: 0 8px 20px rgba(78, 96, 67, 0.1);
+
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+}
+
+/* ==========================================================================
+   2. RESETS E CONFIGURAÇÕES DO CORPO DO SITE (BODY)
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Manrope", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(
+      circle at 52% 42%,
+      rgba(202, 255, 220, 0.78),
+      transparent 23%
+    ),
+    radial-gradient(
+      circle at 18% 15%,
+      rgba(238, 255, 224, 0.92),
+      transparent 29%
+    ),
+    linear-gradient(135deg, #fefdf6 0%, #f5fff4 45%, #ddffe8 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+section {
+  scroll-margin-top: 24px;
+}
+
+/* ==========================================================================
+   3. BASE DE FORMULÁRIOS (INPUTS, SELECTS E ESTRUTURAS)
+   ========================================================================== */
+.auth-form--grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px 20px !important;
+  width: 100%;
+}
+
+.auth-form form:not(.auth-form--grid) {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.auth-form input,
+.auth-form select,
+.setup-card input,
+.recipe-form input,
+.recipe-form textarea,
+.recipe-form select,
+select {
+  width: 100%;
+  border: 1px solid #b8c1a7 !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 251, 0.82) !important;
+  padding: 14px 16px;
+  color: var(--ink);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* CONTAINER DOS ÍCONES PADRONIZADO */
+.input-icon {
+  width: 100% !important;
+  min-height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  border: 1px solid #b8c1a7 !important;
+  border-radius: 12px !important;
+  background-color: rgba(255, 255, 251, 0.82) !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+.input-icon i {
+  color: #9ba886 !important;
+  font-size: 1.1rem !important;
+  margin-right: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  z-index: 2 !important;
+}
+
+.input-icon input {
+  flex: 1 !important;
+  width: 100% !important;
+  height: 48px !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: var(--ink) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  display: block !important;
+}
+
+/* AUTOFILL E FILTROS DE FOCO */
+.input-icon input:-webkit-autofill,
+.input-icon input:-webkit-autofill:hover,
+.input-icon input:-webkit-autofill:focus,
+.input-icon input:-internal-autofill-selected {
+  -webkit-text-fill-color: var(--ink) !important;
+  transition: background-color 999999s ease-in-out 0s !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.auth-form select,
+.setup-card select,
+select {
+  width: 100% !important;
+  border: 1px solid #b8c1a7 !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 251, 0.82)
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%236f8463' d='M0 0l5 5 5-5z'/></svg>")
+    no-repeat right 16px center !important;
+  padding: 14px 40px 14px 16px !important;
+  color: var(--ink);
+  outline: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   4. BOTÕES E COMPONENTES DE INTERAÇÃO
+   ========================================================================== */
+.button,
+button[type="submit"],
+.auth-form .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 32px !important;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--leaf-dark) !important;
+  background: var(--olive-soft) !important;
+  box-shadow: 0 12px 24px rgba(151, 164, 93, 0.15) !important;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+  width: 100% !important;
+  margin-top: 12px !important;
+}
+
+.button:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  background: #e4edaa !important;
+  box-shadow: 0 16px 30px rgba(151, 164, 93, 0.22) !important;
+}
+
+.button--primary,
+.button--accent,
+.button--nav,
+.button--soft {
+  color: var(--leaf-dark);
+  background: linear-gradient(135deg, #e9efb3, #ccd987) !important;
+}
+
+.button--ghost {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+
+.button--small {
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  width: auto !important;
+  margin-top: 0 !important;
+}
+
+.auth-form--grid button[type="submit"],
+.auth-form--grid .button,
+.auth-form--grid .auth-switch {
+  grid-column: span 2 !important;
+}
+
+/* ==========================================================================
+   5. TELA DE SELEÇÃO INICIAL E ESTRUTURA DO SETUP
+   ========================================================================== */
+.landing-shell,
+.setup-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 22px;
+}
+
+.landing-brand,
+.landing-brand--compact {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.landing-brand__mark,
+.auth-badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  color: var(--leaf);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(179, 192, 151, 0.55);
+  box-shadow: var(--shadow-sm);
+}
+
+.landing-brand__mark i {
+  font-size: 1.6rem;
+  color: var(--leaf-dark);
+}
+
+.landing-brand__mark--logo,
+.auth-badge--logo {
+  background: rgba(255, 255, 255, 0.78) url("../img/logo.png") center/62%
+    no-repeat;
+}
+
+.brand-subtitle,
+.landing-brand p {
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--leaf-dark);
+}
+
+.brand-title,
+.landing-brand h1,
+.landing-brand h2 {
+  margin: 0;
+  max-width: 680px;
+  font-size: clamp(1.45rem, 2.6vw, 2.4rem);
+  font-weight: 800;
+  color: var(--leaf-dark);
+  line-height: 1.3;
+}
+
+.profile-grid {
+  width: min(850px, 100%);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: clamp(28px, 7vw, 120px);
+}
+
+.profile-grid .profile-card-link:only-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(420px, 100%);
+}
+
+.profile-card,
+.setup-card,
+.auth-panel,
+.stat-card,
+.empty-state,
+.recipe-form,
+.recipe-card {
+  background: var(--paper);
+  border: 1px solid rgba(174, 184, 138, 0.45);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+}
+
+.setup-card {
+  background: var(--paper-solid) !important;
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.setup-card__title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--leaf-dark);
+  margin: 0;
+}
+
+.setup-card label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.profile-card {
+  align-content: center;
+  min-height: 270px;
+  border-radius: var(--radius-xl);
+  padding: 28px 26px 24px;
+  text-align: center;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.profile-card-link:hover .profile-card {
+  transform: translateY(-7px);
+  border-color: rgba(128, 149, 98, 0.65);
+  box-shadow: var(--shadow-lg);
+}
+
+.profile-card__icon {
+  width: 78px;
+  height: 78px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  color: var(--leaf);
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, #fbf9df, #fff8bb);
+  box-shadow: inset 0 0 0 1px rgba(149, 160, 105, 0.18);
+}
+
+.profile-card__icon--image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.profile-card--chef .profile-card__icon--chef-image {
+  background: url("../img/profissional.jpg") center/cover no-repeat;
+}
+
+.profile-card--fan .profile-card__icon--fan-image {
+  background: url("../img/pexels-fedigioia-35916634.jpg") center/cover no-repeat;
+}
+
+.profile-card h2 {
+  margin: 0 0 10px;
+  color: var(--leaf-dark);
+  font-size: 1.45rem;
+}
+
+.profile-card p {
+  margin: 0 auto 16px;
+  max-width: 290px;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.profile-card ul,
+.auth-highlights,
+.auth-feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+  display: grid;
+  gap: 7px;
+}
+
+.profile-card li,
+.auth-highlights li,
+.auth-feature-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: #9ca886;
+  font-size: 0.9rem;
+}
+
+.profile-card li i,
+.auth-feature-list li i,
+.auth-highlights li::before {
+  color: var(--olive);
+}
+
+.auth-highlights li::before {
+  content: "•";
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   6. TELAS DE AUTENTICAÇÃO (LOGIN / CADASTRO)
+   ========================================================================== */
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(290px, 0.9fr) minmax(320px, 1.1fr);
+  gap: 14px;
+  align-items: center;
+  padding: clamp(22px, 5vw, 76px);
+  background:
+    radial-gradient(
+      circle at 8% 10%,
+      rgba(239, 215, 100, 0.24),
+      transparent 9rem
+    ),
+    radial-gradient(
+      circle at 90% 84%,
+      rgba(190, 255, 209, 0.72),
+      transparent 13rem
+    ),
+    linear-gradient(135deg, #fffef8 0%, #f7fff6 55%, #ddffe8 100%);
+}
+
+.auth-panel {
+  border-radius: var(--radius-xl);
+  padding: clamp(24px, 4vw, 40px);
+}
+
+.auth-panel h1,
+.auth-header h2,
+h1,
+h2 {
+  color: var(--leaf-dark) !important;
+  font-weight: 800 !important;
+}
+
+.auth-panel h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem) !important;
+}
+
+.auth-panel p,
+.auth-header p,
+.recipe-form small,
+.form-heading p {
+  color: var(--muted);
+}
+
+.auth-switch,
+.auth-form p.auth-switch {
+  font-weight: 400 !important;
+  color: var(--muted) !important;
+  margin-top: 14px;
+  text-align: left;
+  width: 100%;
+}
+
+.auth-switch a,
+.auth-switch a strong,
+p a,
+.auth-form p.auth-switch a {
+  font-weight: 700 !important;
+  color: var(--leaf-dark) !important;
+  transition: color 150ms ease;
+}
+
+.auth-switch a:hover,
+p a:hover {
+  text-decoration: underline;
+  color: #3b4733 !important;
+}
+
+.auth-tag,
+.auth-tag--fan {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--leaf-dark);
+  background: #e9f1c0;
+}
+
+/* ==========================================================================
+   7. PAINEL DO SISTEMA (TOPBAR EM LINHA HORIZONTAL)
+   ========================================================================== */
+.app-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px;
+  padding: 16px 40px !important;
+  background: #5b684e !important;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.brand-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-inline__icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-inline__icon i {
+  color: #fffef8;
+  font-size: 1.2rem;
+}
+
+.brand-inline strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.brand-inline span {
+  display: block;
+  font-size: 0.82rem;
+  color: #cbd889;
+}
+
+.topbar-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.nav-link i {
+  font-size: 1rem;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: #f6f8e9 !important;
+}
+
+.button--nav-header {
+  background: #cbd889 !important;
+  color: #526247 !important;
+  padding: 8px 18px !important;
+  border-radius: 20px !important;
+  font-weight: 700;
+  font-size: 0.88rem;
+  width: auto !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.button--nav-header:hover {
+  background: #e4edaa !important;
+}
+
+/* ==========================================================================
+   8. DASHBOARD E CARTÕES DE MÉTRICAS
+   ========================================================================== */
+.dashboard-layout {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.hero-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-panel h2 {
+  font-size: 1.8rem;
+  margin: 0 0 6px 0;
+  color: var(--leaf-dark);
+}
+
+.hero-panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.button--primary {
+  width: auto !important;
+  padding: 12px 24px !important;
+  background: var(--olive-soft) !important;
+  color: var(--leaf-dark) !important;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+  width: 100%;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8d8;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 25 rgba(78, 96, 67, 0.04);
+}
+
+.stat-card span {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.stat-card strong {
+  font-size: 1.8rem;
+  color: var(--leaf-dark);
+  font-weight: 800;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  background: #f4f7eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--leaf);
+  font-size: 1.2rem;
+}
+
+.empty-state {
+  background: rgba(246, 248, 233, 0.5);
+  border: 2px dashed #bdc9aa;
+  border-radius: 20px;
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-state__content {
+  max-width: 400px;
+}
+
+.empty-state__icon {
+  font-size: 2.5rem;
+  color: var(--olive);
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  font-size: 1.3rem;
+  color: var(--leaf-dark);
+  margin: 0 0 8px 0;
+}
+
+.empty-state p {
+  color: var(--muted);
+  margin: 0 0 24px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   9. TELA DE FORMULÁRIO DE RECEITAS (CORES E ALINHAMENTO)
+   ========================================================================== */
+.form-page-container {
+  background: #fdfdfa;
+  min-height: calc(100vh - 72px);
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #6f8463;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #4e5e45;
+}
+
+.recipe-form {
+  background: #ffffff;
+  border: 1px solid #e2e8d8;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 12px 30px rgba(91, 104, 78, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-heading h2 {
+  font-size: 1.6rem;
+  color: #384530;
+  margin: 0 0 6px 0;
+  font-weight: 800;
+}
+
+.form-heading p {
+  margin: 0;
+  color: #7f8c72;
+  font-size: 0.95rem;
+}
+
+.form-group label,
+.list-block__header label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4e5e45;
+}
+
+.recipe-form input[type="text"],
+.recipe-form input[type="number"],
+.recipe-form input[type="url"],
+.recipe-form textarea,
+.recipe-form select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #c8d3bc;
+  border-radius: 10px;
+  background: #fffefb;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #333d2e;
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.recipe-form input:focus,
+.recipe-form textarea:focus,
+.recipe-form select:focus {
+  border-color: #8fa47e;
+  box-shadow: 0 0 0 3px rgba(143, 164, 126, 0.15);
+}
+
+.helper-text {
+  font-size: 0.8rem;
+  color: #909d85;
+  margin-top: 2px;
+}
+/* ==========================================================================
+   10. ÁREA DO BANNER (RESOLVIDO: SEM CORTES E FORMATO PÍLULA)
+   ========================================================================== */
+
+.discover-layout {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+/* ==========================================================================
+   10. AJUSTE DEFINITIVO DO BANNER (RESOLVIDO)
+   ========================================================================== */
+
+.discover-hero {
+  position: relative;
+  width: 100%;
+  margin-top: 0 !important;
+  margin-bottom: 50px;
+}
+
+/* O CONTAINER: Controla a altura da pílula para não virar um blocão gigante */
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 220px; /* Altura ideal para telas de computador */
+  background-color: #4e5e45; /* Caso falte imagem nas pontas, o verde idêntico assume */
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(78, 96, 67, 0.12);
+}
+
+.discover-banner {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+
+  /* POSIÇÃO MÁGICA: Fixa o corte vertical exatamente onde estão o título e o prato */
+  object-position: center 11% !important;
+
+  display: block !important;
+}
+
+/* BARRA DE BUSCA: Encaixada na base do banner */
+.search-wrapper {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+/* RESPONSIVIDADE: Garante que em telas menores o banner não esmague */
+@media (max-width: 768px) {
+  .banner-container {
+    height: 160px;
+  }
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e1e8db;
+  border-radius: 50px;
+  padding: 6px 24px;
+  box-shadow: 0 8px 30px rgba(78, 96, 67, 0.1);
+}
+
+.search-box i {
+  color: #6f8463;
+  font-size: 1.1rem;
+  margin-right: 14px;
+}
+
+.search-box input {
+  border: none !important;
+  background: transparent !important;
+  width: 100%;
+  padding: 12px 0 !important;
+  font-size: 0.95rem;
+  color: #333d2e;
+  outline: none;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   GRID E CARDS DE RECEITAS (CORRIGIDO PARA O SEU HTML COM CONTAINER)
+   ========================================================================== */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+.recipe-card {
+  background: #ffffff !important;
+  border: 1px solid #f0f4eb !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 30px rgba(78, 96, 67, 0.04) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100%;
+  transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Ajuste específico para a div que segura a foto e os botões no seu HTML */
+.recipe-card__image-container {
+  position: relative !important;
+  width: 100% !important;
+  height: 210px !important; /* Define a altura fixa do topo do card */
+  overflow: hidden !important;
+  background-color: #f4f7eb;
+}
+
+/* Força a imagem a preencher a div do topo por completo */
+.recipe-card__image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+.recipe-card__body {
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+}
+
+/* Reposicionamento dos elementos sobre a foto baseado no seu HTML */
+.recipe-card__image-container .favorite-pill {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  background: #ffffff !important;
+  border: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  color: #7f8c72 !important;
+  z-index: 5 !important;
+  cursor: pointer;
+}
+
+.recipe-card__image-container .difficulty {
+  position: absolute !important;
+  top: 16px !important;
+  left: 16px !important;
+  background: rgba(78, 96, 67, 0.8) !important;
+  backdrop-filter: blur(4px) !important;
+  color: #ffffff !important;
+  padding: 6px 14px !important;
+  border-radius: 30px !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  z-index: 5 !important;
+}
+
+/* ==========================================================================
+   BOTÃO SAIR DO NAV BAR
+   ========================================================================== */
+
+/* Garante que os links fiquem alinhados se você estiver usando flexbox */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Estilo base do link Sair */
+.navbar__link--logout {
+  color: #8b3a3a !important; /* Um tom vermelho escuro discreto e elegante */
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.navbar__link--logout:hover {
+  background-color: rgba(139, 58, 58, 0.1); /* Fundo vermelho bem clarinho */
+  color: #a84343 !important; /* Muda a cor do texto levemente */
+}
+/* ==========================================================================
+   11. FORMULÁRIO DE CADASTRO DE NOVAS RECEITAS E CRIAÇÃO DE ETAPAS
+   ========================================================================== */
+.form-grid,
+.form-grid-quad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 600px) {
+  .form-grid,
+  .form-grid-quad {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.list-block {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f9fbf6;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ebf0e4;
+}
+
+.list-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.button-add-item {
+  background: transparent;
+  border: none;
+  color: #6f8463;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.button-add-item:hover {
+  color: #384530;
+}
+
+.step-line {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.step-line span,
+.step-number {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--leaf-dark);
+  font-weight: 800;
+  background: #e4edaa;
+}
+
+.form-actions,
+.setup-actions,
+.form-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.form-actions-row {
+  border-top: 1px solid #edf2e6;
+  padding-top: 24px;
+}
+
+.setup-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.setup-actions .button {
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   12 & 13. RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .profile-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .recipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .auth-shell,
+  .profile-grid,
+  .setup-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-shell {
+    padding: 16px;
+  }
+
+  .setup-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe-grid,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .topbar {
+    flex-direction: column !important;
+    padding: 20px !important;
+  }
+  .topbar-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px !important;
+  }
+}
