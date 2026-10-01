@@ -1,0 +1,13 @@
+{
+  "name": "hinori/portal-receitas",
+  "description": "Portal de Receitas - arquitetura MVCS em PHP puro",
+  "type": "project",
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
