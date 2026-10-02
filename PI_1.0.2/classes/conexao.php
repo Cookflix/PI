@@ -3,8 +3,8 @@ $tipo_banco = "mysql";
 $servidor = "localhost";
 $porta    = "3306";
 $banco    = "PI";
-$usuario  = "hinori";
-$senha    = "1508";
+$usuario  = "root";
+$senha    = "";
 
 $dsn = $tipo_banco . ":host=" . $servidor . ";port=" . $porta . ";dbname=" . $banco . ";charset=utf8mb4";
 
