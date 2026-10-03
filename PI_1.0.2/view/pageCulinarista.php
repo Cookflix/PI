@@ -12,7 +12,7 @@ $usuario = $_SESSION['usuario_nome'];
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal de Receitas - Dashboard</title>
+  <title>Vitrine dos Chef's - Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -28,15 +28,18 @@ $usuario = $_SESSION['usuario_nome'];
           <i class="fa-solid fa-utensils"></i>
         </div>
         <div>
-          <strong>Portal de Receitas</strong>
+          <strong>Vitrine dos Chef's</strong>
           <span>Chef Profissional</span>
         </div>
       </div>
 
       <nav class="topbar-nav">
         <a href="pageCulinarista.php" class="nav-link is-active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-        <a href="#" class="nav-link"><i class="fa-solid fa-wand-sparkles"></i> IA</a>
-        <a href="nova-receita.php" class="button button--nav-header">Nova Receita</a>
+        <!-- <a href="#" class="nav-link"><i class="fa-solid fa-wand-sparkles"></i> IA</a>-->
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Clientes</a>
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Custos</a>
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Relatórios</a>
+        <a href="#" class="button button--nav-header">Receitas</a>
         <a href="perfil.php" class="nav-link user-profile-link"><i class="fa-regular fa-user"></i> <?= htmlspecialchars($usuario) ?></a>
         <a href="logout.php" class="nav-link logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
       </nav>

@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario_id']) || ($_SESSION['usuario_tipo'] ?? '') !== 'CU
   header('Location: login.php?erro=1');
   exit;
 }
-
+$usuario = $_SESSION['usuario_nome'];
 $nomeUsuario = htmlspecialchars($_SESSION['usuario_nome'] ?? 'Chef', ENT_QUOTES, 'UTF-8');
 $usuario_id = $_SESSION['usuario_id']; // ID do culinarista logado para relacionar na tabela
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $imagem_url = trim($_POST['imagem_url']) ?? '';
   $categoria = trim($_POST['categoria']) ?? '';
   $tempo_preparo = intval($_POST['tempo_preparo'] ?? 0);
-  $tempo_cozimento = intval($_POST['tempo_cozimento'] ?? 0);
+  //$tempo_cozimento = intval($_POST['tempo_cozimento'] ?? 0);
   $porcoes = intval($_POST['porcoes'] ?? 0);
   $dificuldade = trim($_POST['dificuldade']) ?? 'facil';
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':imagem_url'      => $imagem_url,
         ':categoria'       => $categoria,
         ':tempo_preparo'   => $tempo_preparo,
-        ':tempo_cozimento' => $tempo_cozimento,
+        //':tempo_cozimento' => $tempo_cozimento,
         ':porcoes'         => $porcoes,
         ':dificuldade'     => $dificuldade,
         ':ingredientes'    => $ingredientes_texto,
@@ -86,15 +86,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="brand-inline">
         <div class="brand-inline__icon"><i class="fa-solid fa-utensils"></i></div>
         <div>
-          <strong>Portal de Receitas</strong>
+          <strong>Vitrine dos Chef's</strong>
           <span>Chef Profissional</span>
         </div>
       </div>
       <nav class="topbar-nav">
-        <a href="pageCulinarista.php" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-        <a href="#" class="nav-link"><i class="fa-solid fa-wand-sparkles"></i> IA</a>
-        <a href="nova-receita.php" class="button button--nav-header"><i class="fa-solid fa-plus"></i> Nova Receita</a>
-        <a href="perfil.php" class="nav-link user-profile-link"><i class="fa-regular fa-user"></i> <?= $nomeUsuario ?></a>
+        <a href="pageCulinarista.php" class="nav-link is-active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+        <!-- <a href="#" class="nav-link"><i class="fa-solid fa-wand-sparkles"></i> IA</a>-->
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Clientes</a>
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Custos</a>
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Relatórios</a>
+        <a href="#" class="button button--nav-header">Receitas</a>
+        <a href="perfil.php" class="nav-link user-profile-link"><i class="fa-regular fa-user"></i> <?= htmlspecialchars($usuario) ?></a>
         <a href="logout.php" class="nav-link logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
       </nav>
     </header>
@@ -138,10 +141,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <label for="preparo-receita">Preparo (min) *</label>
               <input id="preparo-receita" name="tempo_preparo" type="number" placeholder="40" required />
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="cozimento-receita">Cozimento (min) *</label>
               <input id="cozimento-receita" name="tempo_cozimento" type="number" placeholder="25" required />
-            </div>
+            </div> -->
             <div class="form-group">
               <label for="porcoes-receita">Porções *</label>
               <input id="porcoes-receita" name="porcoes" type="number" placeholder="8" required />

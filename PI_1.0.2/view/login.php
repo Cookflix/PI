@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: cliente.php");
         exit();
       } else if ($usuario['tipo'] === 'CULINARISTA') {
-        header("Location: culinarista.php");
+        header("Location: pageCulinarista.php");
         exit();
       } else {
         // Caso seja um 'ADMIN' ou outro tipo não mapeado nas páginas
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal de Receitas - Área de Login</title>
+  <title>Vitrine do Chef's - Área de Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <section class="auth-panel auth-panel--form">
       <div class="auth-header">
         <span class="auth-tag"><i class="fa-solid fa-briefcase"></i> Login</span>
-        <h2>Portal das Receitas</h2>
+        <h2>Vitrine do Chef's</h2>
         <p>Digite seu email e senha para continuar.</p>
       </div>
 
