@@ -13,46 +13,46 @@ $usuario_id = $_SESSION['usuario_id']; // ID do culinarista logado para relacion
 // 2. Processamento do Formulário ao clicar em Publicar
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Ajuste aqui o caminho do seu arquivo de conexão com o banco de dados
-  require_once 'conexao.php';
+  require_once '../classes/conexao.php';
 
   // Captura e sanitiza os dados do formulário
-  $titulo = trim($_POST['titulo']) ?? '';
-  $descricao = trim($_POST['descricao']) ?? '';
-  $imagem_url = trim($_POST['imagem_url']) ?? '';
-  $categoria = trim($_POST['categoria']) ?? '';
+  $nome = trim($_POST['nome'] ?? '');
+  $descricao = trim($_POST['descricao'] ?? '');
+  //$imagem_url = trim($_POST['imagem_url'] ?? '');
+  $id_categoria = trim($_POST['id_categoria'] ?? '');
   $tempo_preparo = intval($_POST['tempo_preparo'] ?? 0);
   //$tempo_cozimento = intval($_POST['tempo_cozimento'] ?? 0);
-  $porcoes = intval($_POST['porcoes'] ?? 0);
-  $dificuldade = trim($_POST['dificuldade']) ?? 'facil';
+  $rendimento = intval($_POST['rendimento'] ?? 0);
+  //$dificuldade = trim($_POST['dificuldade'] ?? 'facil');
 
   // Junta os arrays de ingredientes e passos em texto
-  $ingredientes_array = array_filter(array_map('trim', $_POST['ingredientes'] ?? []));
-  $ingredientes_texto = implode("\n", $ingredientes_array);
+  // $ingredientes_array = array_filter(array_map('trim', $_POST['ingredientes'] ?? []));
+  // $ingredientes_texto = implode("\n", $ingredientes_array);
 
-  $passos_array = array_filter(array_map('trim', $_POST['passos'] ?? []));
-  $passos_texto = implode("\n", $passos_array);
+  // $passos_array = array_filter(array_map('trim', $_POST['passos'] ?? []));
+  // $passos_texto = implode("\n", $passos_array);
 
   // Validação básica de campos obrigatórios
-  if (!empty($titulo) && !empty($descricao) && !empty($categoria)) {
+  if (!empty($nome) && !empty($descricao) && !empty($id_categoria)) {
     try {
       // Prepara a Query de Inserção
-      $sql = "INSERT INTO receita (usuario_id, titulo, descricao, imagem_url, categoria, tempo_preparo, tempo_cozimento, porcoes, dificuldade, ingredientes, modo_preparo) 
-              VALUES (:usuario_id, :titulo, :descricao, :imagem_url, :categoria, :tempo_preparo, :tempo_cozimento, :porcoes, :dificuldade, :ingredientes, :modo_preparo)";
+      $sql = "INSERT INTO receita (id_usuario, nome, descricao, id_categoria, tempo_preparo,  rendimento) 
+              VALUES (:id_usuario, :nome, :descricao, :id_categoria, :tempo_preparo,  :rendimento)";
 
       $stmt = $pdo->prepare($sql);
 
       $stmt->execute([
-        ':usuario_id'      => $usuario_id,
-        ':titulo'          => $titulo,
+        //':id'              => null,
+        ':id_usuario'      => $usuario_id,
+        ':nome'          => $nome,
         ':descricao'       => $descricao,
-        ':imagem_url'      => $imagem_url,
-        ':categoria'       => $categoria,
+        ':id_categoria'       => $id_categoria,
         ':tempo_preparo'   => $tempo_preparo,
         //':tempo_cozimento' => $tempo_cozimento,
-        ':porcoes'         => $porcoes,
-        ':dificuldade'     => $dificuldade,
-        ':ingredientes'    => $ingredientes_texto,
-        ':modo_preparo'    => $passos_texto
+        ':rendimento'      => $rendimento,
+        //':dificuldade'     => $dificuldade,
+        //':ingredientes'    => $ingredientes_texto,
+        //':modo_preparo'    => $passos_texto
       ]);
 
       // Redireciona de volta para o Dashboard com sucesso
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           <div class="form-group">
             <label for="titulo-receita">Título da Receita *</label>
-            <input id="titulo-receita" name="titulo" type="text" placeholder="Ex: Bolo de Chocolate" required />
+            <input id="titulo-receita" name="nome" type="text" placeholder="Ex: Bolo de Chocolate" required />
           </div>
 
           <div class="form-group">
@@ -125,15 +125,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea id="descricao-receita" name="descricao" placeholder="Breve descrição da receita" rows="4" required></textarea>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="imagem-receita">URL da Imagem</label>
             <input id="imagem-receita" name="imagem_url" type="url" placeholder="https://exemplo.com/imagem.jpg" />
             <small class="helper-text">Deixe em branco para usar uma imagem padrão</small>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label for="categoria-receita">Categoria *</label>
-            <input id="categoria-receita" name="categoria" type="text" placeholder="Ex: Sobremesas" required />
+            <input id="categoria-receita" name="id_categoria" type="text" placeholder="Ex: Sobremesas" required />
           </div>
 
           <div class="form-grid-quad">
@@ -146,20 +146,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input id="cozimento-receita" name="tempo_cozimento" type="number" placeholder="25" required />
             </div> -->
             <div class="form-group">
-              <label for="porcoes-receita">Porções *</label>
-              <input id="porcoes-receita" name="porcoes" type="number" placeholder="8" required />
+              <label for="rendimento-receita">Rendimento *</label>
+              <input id="rendimento-receita" name="rendimento" type="number" placeholder="8" required />
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="dificuldade-receita">Dificuldade *</label>
               <select id="dificuldade-receita" name="dificuldade" required>
                 <option value="facil">Fácil</option>
                 <option value="medio">Médio</option>
                 <option value="dificil">Difícil</option>
               </select>
-            </div>
+            </div> -->
           </div>
 
-          <div class="list-block">
+          <!-- <div class="list-block">
             <div class="list-block__header">
               <label>Ingredientes *</label>
               <button type="button" class="button-add-item"><i class="fa-solid fa-plus"></i> Adicionar</button>
@@ -168,9 +168,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input type="text" name="ingredientes[]" placeholder="Ingrediente 1" required />
               <input type="text" name="ingredientes[]" placeholder="Ingrediente 2" />
             </div>
-          </div>
+          </div> -->
 
-          <div class="list-block">
+          <!-- <div class="list-block">
             <div class="list-block__header">
               <label>Modo de Preparo *</label>
               <button type="button" class="button-add-item"><i class="fa-solid fa-plus"></i> Adicionar</button>
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea name="passos[]" placeholder="Passo 2" rows="2"></textarea>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-actions-row">
             <a href="pageCulinarista.php" class="button-cancel">Cancelar</a>
