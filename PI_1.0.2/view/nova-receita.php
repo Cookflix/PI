@@ -149,43 +149,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <label for="rendimento-receita">Rendimento *</label>
               <input id="rendimento-receita" name="rendimento" type="number" placeholder="8" required />
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
               <label for="dificuldade-receita">Dificuldade *</label>
               <select id="dificuldade-receita" name="dificuldade" required>
                 <option value="facil">Fácil</option>
                 <option value="medio">Médio</option>
                 <option value="dificil">Difícil</option>
               </select>
-            </div> -->
+            </div>
           </div>
 
-          <!-- <div class="list-block">
+          <div class="list-block">
             <div class="list-block__header">
               <label>Ingredientes *</label>
-              <button type="button" class="button-add-item"><i class="fa-solid fa-plus"></i> Adicionar</button>
+              <button type="button" class="button-add-item" data-target="ingrediente"><i class="fa-solid fa-plus"></i> Adicionar</button>
             </div>
-            <div class="list-inputs-container">
-              <input type="text" name="ingredientes[]" placeholder="Ingrediente 1" required />
-              <input type="text" name="ingredientes[]" placeholder="Ingrediente 2" />
+            <div class="list-inputs-container" id="ingrediente">
+              <input type="text" name="ingredientes[]" placeholder="Ingrediente" required />
+              <template>
+                <input type="text" name="ingredientes[]" placeholder="Ingrediente"/>
+              </template>
             </div>
-          </div> -->
+          </div>
 
-          <!-- <div class="list-block">
+          <div class="list-block">
             <div class="list-block__header">
               <label>Modo de Preparo *</label>
-              <button type="button" class="button-add-item"><i class="fa-solid fa-plus"></i> Adicionar</button>
+              <button type="button" class="button-add-item" data-target="passo"><i class="fa-solid fa-plus"></i> Adicionar</button>
             </div>
             <div class="steps-container">
               <div class="step-line">
                 <span class="step-number">1</span>
                 <textarea name="passos[]" placeholder="Passo 1" rows="2" required></textarea>
               </div>
-              <div class="step-line">
-                <span class="step-number">2</span>
-                <textarea name="passos[]" placeholder="Passo 2" rows="2"></textarea>
-              </div>
+              
             </div>
-          </div> -->
+          </div>
 
           <div class="form-actions-row">
             <a href="pageCulinarista.php" class="button-cancel">Cancelar</a>
@@ -195,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </main>
   </div>
-  <script src="../js/adicionar.js"></script>
+  <script src="./adicionar.js"></script>
 </body>
 
 </html>
