@@ -167,7 +167,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="list-inputs-container" id="ingrediente">
               <input type="text" name="ingredientes[]" placeholder="Ingrediente" required />
               <template>
+                <div class="template-item">
                 <input type="text" name="ingredientes[]" placeholder="Ingrediente"/>
+        <button type="button" class="remove-btn"><i class="fa-solid fa-trash"></i></button>
+      </div>
               </template>
             </div>
           </div>
@@ -178,9 +181,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <button type="button" class="button-add-item" data-target="passo"><i class="fa-solid fa-plus"></i> Adicionar</button>
             </div>
             <div class="steps-container">
-              <div class="step-line">
+              <div class="step-line" id="passo">
                 <span class="step-number">1</span>
                 <textarea name="passos[]" placeholder="Passo 1" rows="2" required></textarea>
+                <template>
+                  <span class="step-number"></span>
+                <textarea name="passos[]" placeholder="Passo" rows="2" required></textarea>
+                </template>
               </div>
               
             </div>
