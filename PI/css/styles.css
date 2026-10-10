@@ -43,16 +43,12 @@ body {
   font-family: "Manrope", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(
-      circle at 52% 42%,
+    radial-gradient(circle at 52% 42%,
       rgba(202, 255, 220, 0.78),
-      transparent 23%
-    ),
-    radial-gradient(
-      circle at 18% 15%,
+      transparent 23%),
+    radial-gradient(circle at 18% 15%,
       rgba(238, 255, 224, 0.92),
-      transparent 29%
-    ),
+      transparent 29%),
     linear-gradient(135deg, #fefdf6 0%, #f5fff4 45%, #ddffe8 100%);
 }
 
@@ -172,9 +168,7 @@ select {
   width: 100% !important;
   border: 1px solid #b8c1a7 !important;
   border-radius: 12px !important;
-  background: rgba(255, 255, 251, 0.82)
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%236f8463' d='M0 0l5 5 5-5z'/></svg>")
-    no-repeat right 16px center !important;
+  background: rgba(255, 255, 251, 0.82) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%236f8463' d='M0 0l5 5 5-5z'/></svg>") no-repeat right 16px center !important;
   padding: 14px 40px 14px 16px !important;
   color: var(--ink);
   outline: none !important;
@@ -287,8 +281,7 @@ button[type="submit"]:hover {
 
 .landing-brand__mark--logo,
 .auth-badge--logo {
-  background: rgba(255, 255, 255, 0.78) url("../img/logo.png") center/62%
-    no-repeat;
+  background: rgba(255, 255, 255, 0.78) url("../img/logo.png") center/62% no-repeat;
 }
 
 .brand-subtitle,
@@ -466,16 +459,12 @@ button[type="submit"]:hover {
   align-items: center;
   padding: clamp(22px, 5vw, 76px);
   background:
-    radial-gradient(
-      circle at 8% 10%,
+    radial-gradient(circle at 8% 10%,
       rgba(239, 215, 100, 0.24),
-      transparent 9rem
-    ),
-    radial-gradient(
-      circle at 90% 84%,
+      transparent 9rem),
+    radial-gradient(circle at 90% 84%,
       rgba(190, 255, 209, 0.72),
-      transparent 13rem
-    ),
+      transparent 13rem),
     linear-gradient(135deg, #fffef8 0%, #f7fff6 55%, #ddffe8 100%);
 }
 
@@ -852,6 +841,7 @@ p a:hover {
   color: #909d85;
   margin-top: 2px;
 }
+
 /* ==========================================================================
    10. ÁREA DO BANNER (RESOLVIDO: SEM CORTES E FORMATO PÍLULA)
    ========================================================================== */
@@ -865,6 +855,7 @@ p a:hover {
   flex-direction: column;
   gap: 32px;
 }
+
 /* ==========================================================================
    10. AJUSTE DEFINITIVO DO BANNER (RESOLVIDO)
    ========================================================================== */
@@ -880,8 +871,10 @@ p a:hover {
 .banner-container {
   position: relative;
   width: 100%;
-  height: 220px; /* Altura ideal para telas de computador */
-  background-color: #4e5e45; /* Caso falte imagem nas pontas, o verde idêntico assume */
+  height: 220px;
+  /* Altura ideal para telas de computador */
+  background-color: #4e5e45;
+  /* Caso falte imagem nas pontas, o verde idêntico assume */
   border-radius: 24px;
   overflow: hidden;
   display: flex;
@@ -920,6 +913,7 @@ p a:hover {
     height: 160px;
   }
 }
+
 .search-box {
   display: flex;
   align-items: center;
@@ -977,7 +971,8 @@ p a:hover {
 .recipe-card__image-container {
   position: relative !important;
   width: 100% !important;
-  height: 210px !important; /* Define a altura fixa do topo do card */
+  height: 210px !important;
+  /* Define a altura fixa do topo do card */
   overflow: hidden !important;
   background-color: #f4f7eb;
 }
@@ -1044,7 +1039,8 @@ p a:hover {
 
 /* Estilo base do link Sair */
 .navbar__link--logout {
-  color: #8b3a3a !important; /* Um tom vermelho escuro discreto e elegante */
+  color: #8b3a3a !important;
+  /* Um tom vermelho escuro discreto e elegante */
   font-weight: 600;
   text-decoration: none;
   padding: 8px 16px;
@@ -1054,9 +1050,12 @@ p a:hover {
 
 /* Efeito ao passar o mouse (Hover) */
 .navbar__link--logout:hover {
-  background-color: rgba(139, 58, 58, 0.1); /* Fundo vermelho bem clarinho */
-  color: #a84343 !important; /* Muda a cor do texto levemente */
+  background-color: rgba(139, 58, 58, 0.1);
+  /* Fundo vermelho bem clarinho */
+  color: #a84343 !important;
+  /* Muda a cor do texto levemente */
 }
+
 /* ==========================================================================
    11. FORMULÁRIO DE CADASTRO DE NOVAS RECEITAS E CRIAÇÃO DE ETAPAS
    ========================================================================== */
@@ -1068,6 +1067,7 @@ p a:hover {
 }
 
 @media (max-width: 600px) {
+
   .form-grid,
   .form-grid-quad {
     grid-template-columns: repeat(2, 1fr);
@@ -1109,8 +1109,14 @@ p a:hover {
   color: #384530;
 }
 
+.text-area {
+  width: 100%;
+  padding: 12px 16px;
+}
+
 .step-line {
   display: grid;
+  width: 100%;
   grid-template-columns: 42px 1fr;
   gap: 12px;
   align-items: start;
@@ -1118,7 +1124,7 @@ p a:hover {
 
 .step-line span,
 .step-number {
-  width: 42px;
+  width: 100%;
   height: 42px;
   border-radius: 50%;
   display: grid;
@@ -1164,12 +1170,14 @@ p a:hover {
   .recipe-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
 @media (max-width: 760px) {
+
   .auth-shell,
   .profile-grid,
   .setup-actions {
@@ -1186,14 +1194,17 @@ p a:hover {
 }
 
 @media (max-width: 600px) {
+
   .recipe-grid,
   .stats-grid {
     grid-template-columns: 1fr !important;
   }
+
   .topbar {
     flex-direction: column !important;
     padding: 20px !important;
   }
+
   .topbar-nav {
     flex-wrap: wrap;
     justify-content: center;
