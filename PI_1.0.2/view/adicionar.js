@@ -43,3 +43,40 @@ adicionar.forEach((botao) => {
       if (arquivo) document.getElementById("preview").src = URL.createObjectURL(arquivo);
 });
 
+
+
+function preencherProdutos(select, produtos) {
+    const grupo = document.createElement("optgroup");
+    grupo.label = "Produtos do distribuidor";
+
+    produtos.forEach((produto) => {
+        const opcao = document.createElement("option");
+        opcao.value = `produto_distrib:${produto._id}`;
+        opcao.textContent = produto.nome;
+        opcao.dataset.unidade = produto.unidade;
+        grupo.appendChild(opcao);
+    });
+
+    select.appendChild(grupo);
+}
+
+fetch("http://localhost:3000/api/ingredientes")
+    .then((resposta) => {
+        if (!resposta.ok) throw new Error("API respondeu " + resposta.status);
+        return resposta.json();
+    })
+    .then((produtos) => {
+        const disponiveis = produtos.filter((p) => p.disponivel !== false);
+
+        // 1) o molde: as linhas criadas depois já nascem com os produtos
+        const selectMolde = document.querySelector("#ingrediente template")
+            .content.querySelector(".item-select");
+        preencherProdutos(selectMolde, disponiveis);
+
+        // 2) as linhas que já existem na página (a linha inicial)
+        document.querySelectorAll("#ingrediente .item-select")
+            .forEach((select) => preencherProdutos(select, disponiveis));
+    })
+    .catch(() => {
+        document.getElementById("aviso-api").hidden = false;
+    });

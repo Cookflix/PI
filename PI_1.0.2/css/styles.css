@@ -755,6 +755,7 @@ p a:hover {
   line-height: 1.5;
 }
 
+
 /* ==========================================================================
    9. TELA DE FORMULÁRIO DE RECEITAS (CORES E ALINHAMENTO)
    ========================================================================== */
@@ -1198,5 +1199,197 @@ p a:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 16px !important;
+  }
+}
+/* ==========================================================================
+   14. SEÇÃO DASHBOARD GERENCIAL (CHEF SYSTEM)
+   ========================================================================== */
+
+.gerencial-section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  width: 100% !important;
+  margin-top: 24px !important;
+}
+
+.gerencial-header {
+  width: 100% !important;
+}
+
+.gerencial-header h3 {
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  color: var(--leaf-dark) !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.gerencial-divider {
+  height: 1px !important;
+  background: var(--line) !important;
+  width: 100% !important;
+}
+
+/* Grid de 3 Cards de KPI */
+.kpi-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  width: 100% !important;
+}
+
+/* Cards de KPI como Links Clicáveis */
+.kpi-card {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 28px 20px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: var(--shadow-sm) !important;
+  text-decoration: none !important; /* Remove o sublinhado do link */
+  color: inherit !important; /* Mantém a cor do texto padrão */
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+/* Efeito ao passar o mouse por cima do card */
+.kpi-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: var(--shadow-md) !important;
+  border-color: var(--leaf) !important; /* Destaque suave na borda */
+}
+
+.kpi-title {
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 10px !important;
+}
+
+.kpi-number {
+  font-size: 3.2rem !important;
+  font-weight: 800 !important;
+  color: var(--leaf-dark) !important;
+  line-height: 1 !important;
+  margin-bottom: 8px !important;
+}
+
+.kpi-subtitle {
+  font-size: 0.88rem !important;
+  color: var(--muted) !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+.kpi-link {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: #2b6cb0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  text-decoration: none !important;
+}
+
+.kpi-link:hover {
+  color: #1a4971 !important;
+  text-decoration: underline !important;
+}
+
+/* Grid de Tabelas Paralelas */
+.tables-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 24px !important;
+  width: 100% !important;
+}
+
+.table-box {
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 22px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.table-box h4 {
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+  color: var(--leaf-dark) !important;
+  margin: 0 0 16px 0 !important;
+}
+
+.table-responsive {
+  width: 100% !important;
+  overflow-x: auto !important;
+}
+
+.gerencial-table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
+}
+
+.gerencial-table th,
+.gerencial-table td {
+  padding: 12px 14px !important;
+  font-size: 0.9rem !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-right: 1px solid var(--line) !important;
+}
+
+.gerencial-table th:last-child,
+.gerencial-table td:last-child {
+  border-right: none !important;
+}
+
+.gerencial-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+.gerencial-table th {
+  background-color: var(--paper-solid) !important;
+  color: var(--leaf-dark) !important;
+  font-weight: 800 !important;
+}
+
+.gerencial-table td {
+  background-color: #ffffff !important;
+  color: var(--ink) !important;
+  font-weight: 500 !important;
+}
+
+/* Status das Visitas */
+.status-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+}
+
+.status-badge--confirmed {
+  color: #2e7d32 !important;
+}
+
+.status-badge--warning {
+  color: #d97706 !important;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .kpi-grid,
+  .tables-grid {
+    grid-template-columns: 1fr !important;
   }
 }

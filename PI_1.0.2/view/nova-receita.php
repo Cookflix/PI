@@ -21,11 +21,11 @@ $dificuldades  = ['facil', 'medio', 'dificil'];
 $visibilidades = ['PUBLICA', 'PRIVADA'];
 
 // Opções dos selects (também servem como lista de ids válidos)
-$itens = [];
-foreach (array_keys($destinos) as $origem) {
-    $itens[$origem] = $pdo->query("SELECT id, nome, unidade FROM $origem ORDER BY nome")
-                        ->fetchAll(PDO::FETCH_ASSOC);
-}
+$itens = [
+    'ingrediente' => $pdo->query("SELECT id, nome, unidade FROM ingrediente ORDER BY nome")
+                         ->fetchAll(PDO::FETCH_ASSOC),
+];
+
 $categorias = $pdo->query("SELECT id, nome FROM categoria ORDER BY nome")
                   ->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,19 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $qtds    = $_POST['quantidade'] ?? [];
 
     foreach ($valores as $i => $valor) {
-        [$origem, $id] = array_pad(explode(':', (string)$valor, 2), 2, null);
-        $id  = filter_var($id, FILTER_VALIDATE_INT);
-        $qtd = str_replace(',', '.', (string)($qtds[$i] ?? ''));
+    [$origem, $id] = array_pad(explode(':', (string)$valor, 2), 2, null);
+    $qtd = str_replace(',', '.', (string)($qtds[$i] ?? ''));
 
-        $idExiste = isset($destinos[$origem]) && $id !== false
-                && in_array($id, array_column($itens[$origem], 'id'));
-
-        if (!$idExiste || !is_numeric($qtd) || (float)$qtd <= 0) {
-            $linhasValidas = false;
-            break;
-        }
-        $linhas[$origem][$id] = ($linhas[$origem][$id] ?? 0) + (float)$qtd;
+    if ($origem === 'ingrediente') {
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $idExiste = $id !== false && in_array($id, array_column($itens['ingrediente'], 'id'));
+    } elseif ($origem === 'produto_distrib') {
+        $idExiste = preg_match('/^[a-f0-9]{24}$/', (string)$id) === 1;
+    } else {
+        $idExiste = false;
     }
+
+    if (!$idExiste || !is_numeric($qtd) || (float)$qtd <= 0) {
+        $linhasValidas = false;
+        break;
+    }
+    $linhas[$origem][$id] = ($linhas[$origem][$id] ?? 0) + (float)$qtd;
+}
 
     // Validações, uma por vez
     if ($nome === '' || $descricao === '') {
@@ -211,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                  src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23e5e5e5'/><text x='50%25' y='50%25' text-anchor='middle' fill='%23888' font-family='sans-serif' font-size='24'>Imagem da receita</text></svg>">
                             <input type="file" name="imagem" class="form-control" id="imagem" accept="image/jpeg,image/png,image/webp">
                         </figure>
-                        <small class="helper-text">Opcional. JPG, PNG ou WebP, até 2 MB.</small>
+                        <small class="helper-text">As imagens devem ser em JPG ou PNG com até 2 MB.</small>
                     </div>
 
                     <div class="form-group">
@@ -303,8 +308,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-actions-row">
-                        <a href="pageCulinarista.php" class="button-cancel">Cancelar</a>
                         <button type="submit" class="button-submit-recipe"><i class="fa-solid fa-paper-plane"></i> Salvar Receita</button>
+                        <a href="pageCulinarista.php" class="button-cancel">Cancelar</a>
                     </div>
                 </form>
             </div>
