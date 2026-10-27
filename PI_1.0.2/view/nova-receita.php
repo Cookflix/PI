@@ -295,7 +295,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <button type="button" class="button-add-item" data-target="passo"><i class="fa-solid fa-plus"></i> Adicionar</button>
                         </div>
                         <div class="steps-container">
-                            <div class="step-line" id="passo">
+                            <div id="passo">
                                 <textarea class="text-area" name="passos[]" placeholder="Passo 1" rows="2" required></textarea>
                                 <template>
                                     <div class="template-item">

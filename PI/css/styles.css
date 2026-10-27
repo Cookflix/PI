@@ -1115,11 +1115,11 @@ p a:hover {
 }
 
 .step-line {
-  display: grid;
+  display: flex;
   width: 100%;
   grid-template-columns: 42px 1fr;
   gap: 12px;
-  align-items: start;
+  
 }
 
 .step-line span,

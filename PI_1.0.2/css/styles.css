@@ -853,6 +853,17 @@ p a:hover {
   color: #909d85;
   margin-top: 2px;
 }
+
+.template-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+  border-radius: 10px;
+  background: #fffefb;
+  font-size: 0.95rem;
+  color: #333d2e;
+}
 /* ==========================================================================
    10. ÁREA DO BANNER (RESOLVIDO: SEM CORTES E FORMATO PÍLULA)
    ========================================================================== */
