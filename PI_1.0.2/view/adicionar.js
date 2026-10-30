@@ -11,36 +11,36 @@ adicionar.forEach((botao) => {
 
 
     container.addEventListener("click", (event) => {
-      const botaoExcluir = event.target.closest(".remove-btn");
-      if (!botaoExcluir) return;
-      const linha = botaoExcluir.closest(".template-item");
-      linha.remove();
+        const botaoExcluir = event.target.closest(".remove-btn");
+        if (!botaoExcluir) return;
+        const linha = botaoExcluir.closest(".template-item");
+        linha.remove();
     });
 
     botao.addEventListener("click", () => {
-      // Procura dentro do container uma tag <template>.
-      const molde = container.querySelector("template");
-      // Clona o conteúdo do molde e adiciona ao container.
-      const copia = molde.content.cloneNode(true);
-      // Adiciona a cópia ao container.
-      container.append(copia);
+        // Procura dentro do container uma tag <template>.
+        const molde = container.querySelector("template");
+        // Clona o conteúdo do molde e adiciona ao container.
+        const copia = molde.content.cloneNode(true);
+        // Adiciona a cópia ao container.
+        container.append(copia);
 
-          // Atualiza a unidade ao trocar o item do select
-    container.addEventListener("change", (event) => {
-      const select = event.target.closest(".item-select");
-      if (!select) return;
-      const linha = select.closest(".template-item");
-      const unidade = select.selectedOptions[0]?.dataset.unidade || "—";
-      linha.querySelector(".unidade-item").textContent = unidade;
-    });
+        // Atualiza a unidade ao trocar o item do select
+        container.addEventListener("change", (event) => {
+            const select = event.target.closest(".item-select");
+            if (!select) return;
+            const linha = select.closest(".template-item");
+            const unidade = select.selectedOptions[0]?.dataset.unidade || "—";
+            linha.querySelector(".unidade-item").textContent = unidade;
+        });
 
-    // Se o container pede uma linha inicial, cria uma
-    if (container.dataset.inicial) botao.click();
-  })
+        // Se o container pede uma linha inicial, cria uma
+        if (container.dataset.inicial) botao.click();
+    })
 });
-    document.getElementById("imagem")?.addEventListener("change",   (e) => {
-      const arquivo = e.target.files[0];
-      if (arquivo) document.getElementById("preview").src = URL.createObjectURL(arquivo);
+document.getElementById("imagem")?.addEventListener("change", (e) => {
+    const arquivo = e.target.files[0];
+    if (arquivo) document.getElementById("preview").src = URL.createObjectURL(arquivo);
 });
 
 
@@ -80,3 +80,14 @@ fetch("http://localhost:3000/api/ingredientes")
     .catch(() => {
         document.getElementById("aviso-api").hidden = false;
     });
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    try {
+        await salvarReceita(); // sua função de salvamento
+        alert("Salvo com sucesso!");
+    } catch (erro) {
+        alert("Não foi possível salvar a receita.");
+    }
+});

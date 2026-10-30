@@ -2,30 +2,15 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
-
 DELIMITER $$
-CREATE DEFINER=`php`@`localhost` FUNCTION `calcular_custo_receita` (`receita_id` INT) RETURNS DECIMAL(10,2) DETERMINISTIC BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `calcular_custo_ingredientes` (`receita_id` INT) RETURNS DECIMAL(10,2) READS SQL DATA BEGIN
     DECLARE total DECIMAL(10,2);
 
-    -- Soma dos ingredientes genéricos
     SELECT IFNULL(SUM(ri.quantidade * i.preco), 0)
     INTO total
     FROM receita_ingrediente ri
     JOIN ingrediente i ON i.id = ri.id_ingrediente
     WHERE ri.id_receita = receita_id;
-
-    -- Adiciona soma dos produtos do distribuidor
-    SET total = total + IFNULL((
-        SELECT SUM(rp.quantidade * pd.preco)
-        FROM receita_prod_distrib rp
-        JOIN produto_distrib pd ON pd.id = rp.id_produto
-        WHERE rp.id_receita = receita_id
-    ), 0);
 
     RETURN total;
 END$$
@@ -79,14 +64,14 @@ CREATE TABLE `ingrediente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `ingrediente` (`id`, `nome`, `unidade`, `preco`, `atualizado_em`) VALUES
-(1, 'Farinha de Trigo', 'g', 4.50000, '2026-10-27 00:01:34'),
-(2, 'Açúcar Refinado', 'g', 3.80000, '2026-10-27 00:01:39'),
+(1, 'Farinha de Trigo', 'g', 0.00450, '2026-10-27 15:09:42'),
+(2, 'Açúcar Refinado', 'g', 0.00380, '2026-10-27 15:09:42'),
 (3, 'Ovos', 'unid', 0.75000, '2026-10-27 00:40:41'),
-(4, 'Manteiga', 'g', 28.00000, '2026-10-27 00:01:44'),
+(4, 'Manteiga', 'g', 0.02800, '2026-10-27 15:09:42'),
 (5, 'Leite Integral', 'ml', 0.00420, '2026-10-27 00:40:41'),
 (6, 'Fermento Biológico', 'g', 0.08000, '2026-06-29 00:46:12'),
-(7, 'Sal', 'g', 2.00000, '2026-10-27 00:01:50'),
-(8, 'Chocolate em Pó', 'g', 22.00000, '2026-10-27 00:02:03');
+(7, 'Sal', 'g', 0.00200, '2026-10-27 15:09:42'),
+(8, 'Chocolate em Pó', 'g', 0.02200, '2026-10-27 15:09:42');
 
 CREATE TABLE `produto_distrib` (
   `id` int(11) NOT NULL,
@@ -143,32 +128,32 @@ CREATE TABLE `receita_ingrediente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `receita_ingrediente` (`id_receita`, `id_ingrediente`, `quantidade`) VALUES
-(1, 1, 0.500),
+(1, 1, 500.000),
 (1, 6, 10.000),
-(1, 7, 0.010),
-(2, 1, 0.300),
-(2, 2, 0.250),
+(1, 7, 10.000),
+(2, 1, 300.000),
+(2, 2, 250.000),
 (2, 3, 3.000),
-(2, 4, 0.100),
-(2, 8, 0.100),
-(3, 1, 0.050),
-(3, 4, 0.050),
+(2, 4, 100.000),
+(2, 8, 100.000),
+(3, 1, 50.000),
+(3, 4, 50.000),
 (3, 5, 500.000),
-(4, 1, 0.500),
-(4, 2, 0.050),
-(4, 4, 0.250),
+(4, 1, 500.000),
+(4, 2, 50.000),
+(4, 4, 250.000),
 (4, 6, 5.000),
-(5, 2, 0.200),
+(5, 2, 200.000),
 (5, 3, 2.000),
-(5, 4, 0.100),
-(6, 1, 0.200),
+(5, 4, 100.000),
+(6, 1, 200.000),
 (6, 3, 2.000),
-(6, 7, 0.005),
+(6, 7, 5.000),
 (7, 5, 150.000),
-(8, 1, 0.300),
-(8, 2, 0.150),
+(8, 1, 300.000),
+(8, 2, 150.000),
 (8, 3, 2.000),
-(8, 8, 0.050),
+(8, 8, 50.000),
 (13, 2, 200.000),
 (15, 6, 0.020);
 
@@ -253,11 +238,11 @@ CREATE TABLE `vw_receitas_custo` (
 ,`id_categoria` int(11)
 ,`id_usuario` int(11)
 ,`criado_em` datetime
-,`custo_total` decimal(10,2)
+,`custo_ingredientes` decimal(10,2)
 );
 DROP TABLE IF EXISTS `vw_receitas_custo`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_receitas_custo`  AS SELECT `r`.`id` AS `id`, `r`.`nome` AS `nome`, `r`.`descricao` AS `descricao`, `r`.`rendimento` AS `rendimento`, `r`.`tempo_preparo` AS `tempo_preparo`, `r`.`visibilidade` AS `visibilidade`, `r`.`id_categoria` AS `id_categoria`, `r`.`id_usuario` AS `id_usuario`, `r`.`criado_em` AS `criado_em`, `calcular_custo_receita`(`r`.`id`) AS `custo_total` FROM `receita` AS `r` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_receitas_custo`  AS SELECT `r`.`id` AS `id`, `r`.`nome` AS `nome`, `r`.`descricao` AS `descricao`, `r`.`rendimento` AS `rendimento`, `r`.`tempo_preparo` AS `tempo_preparo`, `r`.`visibilidade` AS `visibilidade`, `r`.`id_categoria` AS `id_categoria`, `r`.`id_usuario` AS `id_usuario`, `r`.`criado_em` AS `criado_em`, `calcular_custo_ingredientes`(`r`.`id`) AS `custo_ingredientes` FROM `receita` AS `r` ;
 
 
 ALTER TABLE `categoria`
@@ -352,6 +337,4 @@ ALTER TABLE `visita`
   ADD CONSTRAINT `fk_visita_culin` FOREIGN KEY (`id_culin`) REFERENCES `culinarista` (`id_culin`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

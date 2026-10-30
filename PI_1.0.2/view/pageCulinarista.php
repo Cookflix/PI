@@ -25,19 +25,19 @@ $usuario = $_SESSION['usuario_nome'];
     <!-- NAVEGAÇÃO SUPERIOR -->
     <header class="topbar">
       <div class="brand-inline">
-        <div class="brand-inline__icon">
-          <i class="fa-solid fa-utensils"></i>
-        </div>
+        <div class="brand-inline__icon"><i class="fa-solid fa-utensils"></i></div>
         <div>
-          <strong>Portal de Receitas</strong>
+          <strong>Vitrine dos Chef's</strong>
           <span>Chef Profissional</span>
         </div>
       </div>
-
       <nav class="topbar-nav">
         <a href="pageCulinarista.php" class="nav-link is-active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-        <a href="#" class="nav-link"><i class="fa-solid fa-wand-sparkles"></i> IA</a>
-        <a href="nova-receita.php" class="button button--nav-header">Nova Receita</a>
+        <!-- <a href="#" class="nav-link"><i class="fa-solid fa-wand-sparkles"></i> IA</a>-->
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Clientes</a>
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Custos</a>
+        <a href="#" class="nav-link"><i class="fa-solid "></i> Relatórios</a>
+        <a href="#" class="button button--nav-header">Receitas</a>
         <a href="perfil.php" class="nav-link user-profile-link"><i class="fa-regular fa-user"></i> <?= htmlspecialchars($usuario) ?></a>
         <a href="logout.php" class="nav-link logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
       </nav>
@@ -85,7 +85,7 @@ $usuario = $_SESSION['usuario_nome'];
 
       <!-- DASHBOARD GERENCIAL -->
       <section class="gerencial-section">
-        
+
         <div class="gerencial-header">
           <h3>Dashboard Gerencial</h3>
           <div class="gerencial-divider"></div>
@@ -97,20 +97,20 @@ $usuario = $_SESSION['usuario_nome'];
             <span class="kpi-title">VISITAS HOJE</span>
             <strong class="kpi-number">04</strong>
             <span class="kpi-subtitle">(Sem agendamentos)</span>
-         </a>
+          </a>
 
           <a href=".php" class="kpi-card">
             <span class="kpi-title">RECEITAS PENDENTES</span>
             <strong class="kpi-number">12</strong>
             <span class="kpi-subtitle">(Sem precificação)</span>
-        </a>
+          </a>
 
-        <a href=".php" class="kpi-card">
-          <span class="kpi-title">RELATÓRIOS RECENTES</span>
-          <strong class="kpi-number">03</strong>
-          <span class="kpi-subtitle">(Aguardando envio)</span>
-        </a>
-      </div>
+          <a href=".php" class="kpi-card">
+            <span class="kpi-title">RELATÓRIOS RECENTES</span>
+            <strong class="kpi-number">03</strong>
+            <span class="kpi-subtitle">(Aguardando envio)</span>
+          </a>
+        </div>
 
         <!-- TABELAS INFERIORES -->
         <div class="tables-grid">
@@ -147,32 +147,69 @@ $usuario = $_SESSION['usuario_nome'];
           </div>
 
           <div class="table-box">
-            <h4>Clientes Cadastrados Recentemente</h4>
+            <h4>Minhas receitas</h4>
+            <p id="status-receitas"></p>
             <div class="table-responsive">
               <table class="gerencial-table">
                 <thead>
                   <tr>
-                    <th>Data</th>
-                    <th>Cliente</th>
+                    <th scope="col">Receita</th>
+                    <th scope="col">Custo dos Ingredientes</th>
+                    <th scope="col">Custo Total</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>28/09/2026</td>
-                    <td>Padaria B</td>
-                  </tr>
-                  <tr>
-                    <td>25/09/2026</td>
-                    <td>Hotel D</td>
-                  </tr>
-                  <tr>
-                    <td>20/09/2026</td>
-                    <td>Bistrô C</td>
-                  </tr>
-                </tbody>
+                <tbody id="corpo-receitas"></tbody>
               </table>
             </div>
           </div>
         </div>
       </section>
+      <script>
+        const statusEl = document.getElementById("status-receitas");
+        const corpo = document.getElementById("corpo-receitas");
+
+        fetch("api-dashboard.php")
+          .then((resposta) => {
+            if (!resposta.ok) {
+              throw new Error("falha"); // pula direto para o .catch
+            }
+            return resposta.json();
+          })
+          .then((dados) => {
+            const receitas = dados.receitas;
+            if (receitas.length === 0) {
+              statusEl.textContent = "Você ainda não tem receitas salvas.";
+              return;
+            }
+
+            receitas.length > 5 && (statusEl.textContent = "Exibindo apenas as 5 receitas mais recentes.");
+
+            receitas.slice(0, 5).forEach((receita) => {
+              const tr = document.createElement("tr"); // criar a linha
+              const tdNome = document.createElement("td"); // criar a célula
+              tdNome.textContent = receita.nome; // preencher
+              tr.appendChild(tdNome); // encaixar a célula na linha
+              corpo.appendChild(tr); // encaixar a linha na tabela
+
+              const tdCusto = document.createElement("td");
+              tdCusto.textContent = receita.custo_ingredientes.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              });
+              tr.appendChild(tdCusto);
+
+              const tdTotal = document.createElement("td");
+              tdTotal.textContent = "—";
+              tr.appendChild(tdTotal);
+            });
+          })
+          .catch((erro) => {
+            console.error(erro);
+            statusEl.textContent = "Não foi possível carregar suas receitas.";
+          });
+      </script>
+    </main>
+  </div>
+</body>
+
 </html>

@@ -1144,7 +1144,9 @@ p a:hover {
 .setup-actions,
 .form-actions-row {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 24px;
 }

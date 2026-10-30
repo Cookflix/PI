@@ -137,7 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $pdo->commit();
-            header('Location: pageCulinarista.php?sucesso=1');
+            header('Location: nova-receita.php?sucesso=1');
+            
             exit;
         } catch (PDOException $e) {
             if ($pdo->inTransaction()) $pdo->rollBack();
@@ -149,6 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         @unlink(__DIR__ . '/../' . $imagem);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -308,8 +310,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-actions-row">
+                        <!-- <input type="button" value="Salvar Receita" class="button-submit-recipe" onclick="this.form.submit();"> -->
                         <button type="submit" class="button-submit-recipe"><i class="fa-solid fa-paper-plane"></i> Salvar Receita</button>
-                        <a href="pageCulinarista.php" class="button-cancel">Cancelar</a>
+                        <a href="nova-receita.php" class="button-cancel">Cancelar</a>
                     </div>
                 </form>
             </div>
