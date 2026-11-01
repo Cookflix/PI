@@ -34,7 +34,7 @@ $usuarioId = (int) $_SESSION['usuario_id'];
 
 try {
     $stmt = $pdo->prepare(
-        "SELECT id, nome, custo_ingredientes
+        "SELECT id, nome, rendimento, custo_ingredientes
         FROM vw_receitas_custo
         WHERE id_usuario = :usuario_id
         ORDER BY id DESC"
@@ -68,6 +68,7 @@ try {
         $saida[] = [
             'id'                 => (int) $r['id'],
             'nome'               => $r['nome'],
+            'rendimento'         => (String) $r['rendimento'],
             'custo_ingredientes' => (float) $r['custo_ingredientes'],
             'produtos'           => $produtosPorReceita[(int) $r['id']] ?? [],
         ];

@@ -154,7 +154,7 @@ $usuario = $_SESSION['usuario_nome'];
                 <thead>
                   <tr>
                     <th scope="col">Receita</th>
-                    <th scope="col">Custo dos Ingredientes</th>
+                    <th scope="col">Rendimento</th>
                     <th scope="col">Custo Total</th>
                   </tr>
                 </thead>
