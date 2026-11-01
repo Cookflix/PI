@@ -23,11 +23,11 @@ $visibilidades = ['PUBLICA', 'PRIVADA'];
 // Opções dos selects (também servem como lista de ids válidos)
 $itens = [
     'ingrediente' => $pdo->query("SELECT id, nome, unidade FROM ingrediente ORDER BY nome")
-                         ->fetchAll(PDO::FETCH_ASSOC),
+        ->fetchAll(PDO::FETCH_ASSOC),
 ];
 
 $categorias = $pdo->query("SELECT id, nome FROM categoria ORDER BY nome")
-                  ->fetchAll(PDO::FETCH_ASSOC);
+    ->fetchAll(PDO::FETCH_ASSOC);
 
 $erro_banco = '';
 
@@ -47,24 +47,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $qtds    = $_POST['quantidade'] ?? [];
 
     foreach ($valores as $i => $valor) {
-    [$origem, $id] = array_pad(explode(':', (string)$valor, 2), 2, null);
-    $qtd = str_replace(',', '.', (string)($qtds[$i] ?? ''));
+        [$origem, $id] = array_pad(explode(':', (string)$valor, 2), 2, null);
+        $qtd = str_replace(',', '.', (string)($qtds[$i] ?? ''));
 
-    if ($origem === 'ingrediente') {
-        $id = filter_var($id, FILTER_VALIDATE_INT);
-        $idExiste = $id !== false && in_array($id, array_column($itens['ingrediente'], 'id'));
-    } elseif ($origem === 'produto_distrib') {
-        $idExiste = preg_match('/^[a-f0-9]{24}$/', (string)$id) === 1;
-    } else {
-        $idExiste = false;
+        if ($origem === 'ingrediente') {
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+            $idExiste = $id !== false && in_array($id, array_column($itens['ingrediente'], 'id'));
+        } elseif ($origem === 'produto_distrib') {
+            $idExiste = preg_match('/^[a-f0-9]{24}$/', (string)$id) === 1;
+        } else {
+            $idExiste = false;
+        }
+
+        if (!$idExiste || !is_numeric($qtd) || (float)$qtd <= 0) {
+            $linhasValidas = false;
+            break;
+        }
+        $linhas[$origem][$id] = ($linhas[$origem][$id] ?? 0) + (float)$qtd;
     }
 
-    if (!$idExiste || !is_numeric($qtd) || (float)$qtd <= 0) {
-        $linhasValidas = false;
-        break;
+    // Passos do modo de preparo: ignora os vazios e mantém a ordem digitada
+    $passos = [];
+    foreach ((array)($_POST['passos'] ?? []) as $texto) {
+        $texto = is_string($texto) ? trim($texto) : '';
+        if ($texto !== '') {
+            $passos[] = $texto;
+        }
     }
-    $linhas[$origem][$id] = ($linhas[$origem][$id] ?? 0) + (float)$qtd;
-}
 
     // Validações, uma por vez
     if ($nome === '' || $descricao === '') {
@@ -77,6 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro_banco = "Selecione a visibilidade da receita.";
     } elseif (!$linhasValidas || !$linhas) {
         $erro_banco = "Adicione ao menos um ingrediente válido, com quantidade maior que zero.";
+    } elseif (!$passos) {
+        $erro_banco = "Adicione ao menos um passo do modo de preparo.";
     }
 
     // Imagem (opcional): só processa se o resto estiver válido
@@ -136,9 +147,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
+            $stmtPasso = $pdo->prepare(
+                "INSERT INTO receita_passo (id_receita, ordem, descricao) VALUES (?, ?, ?)"
+            );
+            foreach ($passos as $i => $texto) {
+                $stmtPasso->execute([$idReceita, $i + 1, $texto]);
+            }
+
             $pdo->commit();
             header('Location: nova-receita.php?sucesso=1');
-            
+
             exit;
         } catch (PDOException $e) {
             if ($pdo->inTransaction()) $pdo->rollBack();
@@ -215,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="imagem">Imagem da receita</label>
                         <figure>
                             <img id="preview" class="preview-img mb-2" alt="Prévia da imagem"
-                                 src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23e5e5e5'/><text x='50%25' y='50%25' text-anchor='middle' fill='%23888' font-family='sans-serif' font-size='24'>Imagem da receita</text></svg>">
+                                src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%25' height='100%25' fill='%23e5e5e5'/><text x='50%25' y='50%25' text-anchor='middle' fill='%23888' font-family='sans-serif' font-size='24'>Imagem da receita</text></svg>">
                             <input type="file" name="imagem" class="form-control" id="imagem" accept="image/jpeg,image/png,image/webp">
                         </figure>
                         <small class="helper-text">As imagens devem ser em JPG ou PNG com até 2 MB.</small>
@@ -242,15 +260,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-grid-quad">
                         <div class="form-group">
                             <label for="preparo-receita">Preparo (min) *</label>
-                            <input id="preparo-receita" name="tempo_preparo" type="number" placeholder="40" required />
+                            <input id="preparo-receita" name="tempo_preparo" type="number" placeholder="ex: 40" required />
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="cozimento-receita">Cozimento (min) *</label>
-                            <input id="cozimento-receita" name="tempo_cozimento" type="number" placeholder="25" required />
-                        </div> -->
+
                         <div class="form-group">
                             <label for="rendimento-receita">Rendimento *</label>
-                            <input id="rendimento-receita" name="rendimento" type="number" placeholder="8" required />
+                            <input id="rendimento-receita" name="rendimento" type="number" placeholder="ex: 8" required />
                         </div>
                         <div class="form-group">
                             <label for="dificuldade-receita">Dificuldade *</label>
@@ -276,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <optgroup label="<?= $origem === 'ingrediente' ? 'Ingredientes' : 'Produtos do distribuidor' ?>">
                                                 <?php foreach ($lista as $it): ?>
                                                     <option value="<?= $origem ?>:<?= (int)$it['id'] ?>"
-                                                            data-unidade="<?= htmlspecialchars($it['unidade'], ENT_QUOTES, 'UTF-8') ?>">
+                                                        data-unidade="<?= htmlspecialchars($it['unidade'], ENT_QUOTES, 'UTF-8') ?>">
                                                         <?= htmlspecialchars($it['nome'], ENT_QUOTES, 'UTF-8') ?>
                                                     </option>
                                                 <?php endforeach; ?>
@@ -310,7 +325,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-actions-row">
-                        <!-- <input type="button" value="Salvar Receita" class="button-submit-recipe" onclick="this.form.submit();"> -->
                         <button type="submit" class="button-submit-recipe"><i class="fa-solid fa-paper-plane"></i> Salvar Receita</button>
                         <a href="nova-receita.php" class="button-cancel">Cancelar</a>
                     </div>

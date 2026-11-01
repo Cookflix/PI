@@ -1105,6 +1105,13 @@ p a:hover {
   margin-bottom: 4px;
 }
 
+#aviso-api {
+  text-align: center;
+   color: #e90a0a; 
+}
+
+
+
 .button-add-item {
   background: transparent;
   border: none;

@@ -8,13 +8,22 @@ ini_set('display_startup_errors', 1);
 require_once '../classes/conexao.php';
 require_once '../classes/Usuario.php';
 require_once '../crud/UsuarioCrud.php';
+require_once '../classes/conexao.php';
+/** @var PDO $pdo */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nome           = $_POST['nome'];
   $email          = $_POST['email'];
   $senha          = $_POST['senha'];
   $confirmarSenha = $_POST['confirmar-senha'];
-  $tipoUsuario    = $_POST['opcao']; // Recebe 'CULINARISTA' ou 'CLIENTE'
+  $tipoUsuario    = $_POST['opcao'] ?? ''; // Recebe 'CULINARISTA' ou 'CLIENTE'
+
+  // O navegador pode enviar qualquer valor, então o servidor confere
+  $tiposPermitidos = ['CULINARISTA', 'CLIENTE'];
+  if (!in_array($tipoUsuario, $tiposPermitidos, true)) {
+    header("Location: cadastro.php?erro=3");
+    exit();
+  }
 
   if ($senha !== $confirmarSenha) {
     header("Location: cadastro.php?erro=1");
@@ -95,28 +104,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input id="email" type="email" placeholder="cozinhar@email.com" name="email" required />
           </div>
         </div>
-        <div class="form-group">
-          <label for="user-mode">Escolha em qual modo deseja entrar</label>
-          <select id="user-mode">
-            <option value="cliente">Cliente</option>
-            <option value="Curinalista">Curinalista</option>
-          </select>
+      </div>
+      <div>
+        <label for="cad-senha-prof">Senha</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-lock"></i>
+          <input id="cad-senha-prof" type="password" placeholder="Crie uma senha" name="senha" required minlength="8" />
         </div>
+      </div>
+      <div>
+        <label for="cad-conf-prof">Confirmar senha</label>
+        <div class="input-icon">
+          <i class="fa-solid fa-shield-heart"></i>
+          <input id="cad-conf-prof" type="password" placeholder="Confirme a senha" name="confirmar-senha" required minlength="8" />
         </div>
-        <div>
-          <label for="cad-senha-prof">Senha</label>
-          <div class="input-icon">
-            <i class="fa-solid fa-lock"></i>
-            <input id="cad-senha-prof" type="password" placeholder="Crie uma senha" name="senha" required minlength="8" />
-          </div>
-        </div>
-        <div>
-          <label for="cad-conf-prof">Confirmar senha</label>
-          <div class="input-icon">
-            <i class="fa-solid fa-shield-heart"></i>
-            <input id="cad-conf-prof" type="password" placeholder="Confirme a senha" name="confirmar-senha" required minlength="8" />
-          </div>
-        </div>
+      </div>
+      <div class="form-group">
+        <label for="user-mode">Escolha em qual modo deseja entrar</label>
+        <select id="user-mode" name="opcao" required>
+          <option value="CLIENTE">Cliente</option>
+          <option value="CULINARISTA">Culinarista</option>
+        </select>
+      </div>
         <button type="submit" class="button button--primary auth-submit auth-submit--full">
           <i class="fa-solid fa-user-check"></i> Cadastrar
         </button>
@@ -135,6 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if (paramsCadastroProf.get('erro') === '2') {
       alertCadastroProf.hidden = false;
       alertCadastroProf.textContent = 'Já existe um usuário cadastrado com esse e-mail.';
+    } else if (paramsCadastroProf.get('erro') === '3') {
+      alertCadastroProf.hidden = false;
+      alertCadastroProf.textContent = 'Tipo de usuário inválido.';
     }
   </script>
 </body>

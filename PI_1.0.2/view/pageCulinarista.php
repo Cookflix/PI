@@ -164,52 +164,11 @@ $usuario = $_SESSION['usuario_nome'];
           </div>
         </div>
       </section>
-      <script>
-        const statusEl = document.getElementById("status-receitas");
-        const corpo = document.getElementById("corpo-receitas");
-
-        fetch("api-dashboard.php")
-          .then((resposta) => {
-            if (!resposta.ok) {
-              throw new Error("falha"); // pula direto para o .catch
-            }
-            return resposta.json();
-          })
-          .then((dados) => {
-            const receitas = dados.receitas;
-            if (receitas.length === 0) {
-              statusEl.textContent = "Você ainda não tem receitas salvas.";
-              return;
-            }
-
-            receitas.length > 5 && (statusEl.textContent = "Exibindo apenas as 5 receitas mais recentes.");
-
-            receitas.slice(0, 5).forEach((receita) => {
-              const tr = document.createElement("tr"); // criar a linha
-              const tdNome = document.createElement("td"); // criar a célula
-              tdNome.textContent = receita.nome; // preencher
-              tr.appendChild(tdNome); // encaixar a célula na linha
-              corpo.appendChild(tr); // encaixar a linha na tabela
-
-              const tdCusto = document.createElement("td");
-              tdCusto.textContent = receita.custo_ingredientes.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL"
-              });
-              tr.appendChild(tdCusto);
-
-              const tdTotal = document.createElement("td");
-              tdTotal.textContent = "—";
-              tr.appendChild(tdTotal);
-            });
-          })
-          .catch((erro) => {
-            console.error(erro);
-            statusEl.textContent = "Não foi possível carregar suas receitas.";
-          });
-      </script>
     </main>
   </div>
+  <script src="dashboard.js?v=<?= time() ?>" defer></script>
+  <!--O defer manda o navegador executar o arquivo só depois de ler o HTML inteiro, então os getElementById já encontram a tabela.
+O  time() evita que o navegador reaproveite uma versão antiga do arquivo .-->
 </body>
 
 </html>

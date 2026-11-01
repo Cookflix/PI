@@ -2,6 +2,12 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `calcular_custo_ingredientes` (`receita_id` INT) RETURNS DECIMAL(10,2) READS SQL DATA BEGIN
     DECLARE total DECIMAL(10,2);
@@ -64,14 +70,21 @@ CREATE TABLE `ingrediente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `ingrediente` (`id`, `nome`, `unidade`, `preco`, `atualizado_em`) VALUES
-(1, 'Farinha de Trigo', 'g', 0.00450, '2026-10-27 15:09:42'),
-(2, 'Açúcar Refinado', 'g', 0.00380, '2026-10-27 15:09:42'),
-(3, 'Ovos', 'unid', 0.75000, '2026-10-27 00:40:41'),
-(4, 'Manteiga', 'g', 0.02800, '2026-10-27 15:09:42'),
-(5, 'Leite Integral', 'ml', 0.00420, '2026-10-27 00:40:41'),
-(6, 'Fermento Biológico', 'g', 0.08000, '2026-06-29 00:46:12'),
-(7, 'Sal', 'g', 0.00200, '2026-10-27 15:09:42'),
-(8, 'Chocolate em Pó', 'g', 0.02200, '2026-10-27 15:09:42');
+(1, 'Farinha de trigo', 'g', 0.00450, '2026-10-31 15:07:24'),
+(2, 'Açúcar refinado', 'g', 0.00450, '2026-10-31 15:07:24'),
+(3, 'Ovo', 'unid', 0.90000, '2026-10-31 15:07:24'),
+(4, 'Manteiga', 'g', 0.05400, '2026-10-31 15:07:24'),
+(5, 'Leite integral', 'ml', 0.00760, '2026-10-31 15:07:24'),
+(6, 'Fermento biológico seco', 'g', 0.15000, '2026-10-31 15:07:24'),
+(7, 'Sal', 'g', 0.00300, '2026-10-31 15:07:24'),
+(8, 'Chocolate em pó 50%', 'g', 0.03500, '2026-10-31 15:07:24'),
+(9, 'Margarina', 'g', 0.02600, '2026-10-31 15:07:24'),
+(10, 'Essência de baunilha', 'ml', 0.13000, '2026-10-31 15:07:24'),
+(11, 'Óleo de soja', 'ml', 0.00850, '2026-10-31 15:07:24'),
+(12, 'Fermento químico em pó', 'g', 0.07000, '2026-10-31 15:07:24'),
+(13, 'Creme de leite', 'g', 0.03000, '2026-10-31 15:07:24'),
+(14, 'Leite condensado', 'g', 0.02000, '2026-10-31 15:07:24'),
+(15, 'Cacau em pó 100%', 'g', 0.07500, '2026-10-31 15:07:24');
 
 CREATE TABLE `produto_distrib` (
   `id` int(11) NOT NULL,
@@ -106,20 +119,18 @@ CREATE TABLE `receita` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `receita` (`id`, `nome`, `descricao`, `imagem`, `rendimento`, `tempo_preparo`, `dificuldade`, `visibilidade`, `id_categoria`, `id_usuario`, `criado_em`) VALUES
-(1, 'Pão Francês Artesanal', 'Pão crocante por fora e macio por dentro.', NULL, '20 unidades', 90, NULL, 'PUBLICA', 4, 2, '2026-06-29 00:46:12'),
-(2, 'Bolo de Chocolate Intenso', 'Bolo úmido com cobertura de ganache.', NULL, '12 fatias', 60, NULL, 'PUBLICA', 2, 3, '2026-06-29 00:46:12'),
-(3, 'Molho Bechamel Clássico', 'Base para lasanha e massas gratinadas.', NULL, '500ml', 20, NULL, 'PUBLICA', 3, 3, '2026-06-29 00:46:12'),
-(4, 'Croissant Amanteigado', 'Massa folhada com camadas bem definidas.', NULL, '10 unidades', 180, NULL, 'PRIVADA', 4, 2, '2026-06-29 00:46:12'),
-(5, 'Brownie Nestlé', 'Brownie denso usando chocolate meio amargo.', NULL, '16 pedaços', 45, NULL, 'PUBLICA', 2, 4, '2026-06-29 00:46:12'),
-(6, 'Lasanha Bolonhesa', 'Massa fresca com molho de carne e bechamel.', NULL, '8 porções', 120, NULL, 'PUBLICA', 1, 3, '2026-06-29 00:46:12'),
-(7, 'Cappuccino Cremoso', 'Receita interna de cappuccino com achocolatado.', NULL, '1 porção', 10, NULL, 'PRIVADA', 5, 5, '2026-06-29 00:46:12'),
-(8, 'Pão de Mel', 'Pão de mel recheado com doce de leite condensado.', NULL, '24 unidades', 50, NULL, 'PUBLICA', 2, 7, '2026-06-29 00:46:12'),
-(11, 'bolo', 'ddsdd', NULL, '3', 34, NULL, 'PRIVADA', 2, 2, '2026-10-05 01:04:49'),
-(12, 'bolo de ovo', 'É um bolo de ovo', NULL, '5', 20, NULL, 'PRIVADA', 5, 2, '2026-10-09 16:07:18'),
-(13, 'bolo', 'dad', NULL, '7', 43, NULL, 'PRIVADA', 2, 2, '2026-10-10 01:24:13'),
-(14, 'bolo', 'SDFS', 'uploads/receitas/00f1c221255d15263831002026d0e601.jpg', '4', 54, 'dificil', 'PUBLICA', 5, 2, '2026-10-10 01:44:12'),
-(15, 'Teste', 'Gravando uma receita', NULL, '1', 15, 'facil', 'PRIVADA', 3, 2, '2026-10-26 22:44:31'),
-(16, 'Teste valor', 'valor', NULL, '1', 10, 'facil', 'PRIVADA', 5, 2, '2026-10-26 22:46:26');
+(1, 'Pão de leite recheado com doce de leite', 'Pão levemente adocicado e macio, recheado com doce de leite forneável.', NULL, '12 unidades', 150, 'medio', 'PUBLICA', 4, 2, '2026-10-31 15:07:24'),
+(2, 'Bolo de baunilha com recheio de doce de leite', 'Bolo fofinho de baunilha com recheio forneável de doce de leite.', NULL, '12 fatias', 55, 'facil', 'PUBLICA', 2, 2, '2026-10-31 15:07:24'),
+(3, 'Pão doce amanteigado com recheio de chocolate', 'Pão doce enriquecido com manteiga e recheado com chocolate forneável.', NULL, '10 unidades', 160, 'medio', 'PUBLICA', 4, 2, '2026-10-31 15:07:24'),
+(4, 'Cookies de chocolate', 'Cookies crocantes nas bordas e macios no centro.', NULL, '20 unidades', 40, 'facil', 'PUBLICA', 2, 2, '2026-10-31 15:07:24'),
+(5, 'Panquecas de baunilha com doce de leite', 'Panquecas macias servidas com recheio forneável de doce de leite.', NULL, '10 unidades', 30, 'facil', 'PUBLICA', 2, 3, '2026-10-31 15:07:24'),
+(6, 'Brownie de cacau com gotas meio amargas', 'Brownie úmido e intenso, feito com cacau e gotas de chocolate meio amargo.', NULL, '16 pedaços', 45, 'facil', 'PUBLICA', 2, 3, '2026-10-31 15:07:24'),
+(7, 'Molho branco com creme de leite', 'Molho cremoso para massas, legumes e preparações gratinadas.', NULL, '600 ml', 25, 'facil', 'PUBLICA', 3, 3, '2026-10-31 15:07:24'),
+(8, 'Massa fresca ao molho cremoso', 'Massa de ovos para abrir e cortar em talharim, servida com molho de creme de leite.', NULL, '4 porções', 60, 'medio', 'PUBLICA', 1, 3, '2026-10-31 15:07:24'),
+(9, 'Bolo de chocolate com cobertura', 'Bolo de chocolate com cobertura de gotas ao leite e creme de leite.', NULL, '12 fatias', 70, 'facil', 'PUBLICA', 2, 4, '2026-10-31 15:07:24'),
+(10, 'Brigadeiro com leite condensado e granulado Nestlé', 'Doce de panela feito com leite condensado, cobertura de brigadeiro e granulado.', NULL, '25 unidades', 35, 'facil', 'PUBLICA', 2, 4, '2026-10-31 15:07:24'),
+(11, 'Pão de mel recheado com chocolate', 'Bolinhos macios de chocolate e baunilha, recheados com chocolate forneável.', NULL, '18 unidades', 55, 'medio', 'PUBLICA', 2, 4, '2026-10-31 15:07:24'),
+(12, 'Biscoito amanteigado coberto com chocolate', 'Biscoitos delicados de baunilha com cobertura de chocolate meio amargo.', NULL, '30 unidades', 45, 'facil', 'PUBLICA', 4, 4, '2026-10-31 15:07:24');
 
 CREATE TABLE `receita_ingrediente` (
   `id_receita` int(11) NOT NULL,
@@ -129,33 +140,77 @@ CREATE TABLE `receita_ingrediente` (
 
 INSERT INTO `receita_ingrediente` (`id_receita`, `id_ingrediente`, `quantidade`) VALUES
 (1, 1, 500.000),
+(1, 2, 50.000),
+(1, 3, 1.000),
+(1, 4, 50.000),
+(1, 5, 250.000),
 (1, 6, 10.000),
-(1, 7, 10.000),
+(1, 7, 8.000),
 (2, 1, 300.000),
 (2, 2, 250.000),
 (2, 3, 3.000),
-(2, 4, 100.000),
-(2, 8, 100.000),
-(3, 1, 50.000),
-(3, 4, 50.000),
-(3, 5, 500.000),
-(4, 1, 500.000),
-(4, 2, 50.000),
-(4, 4, 250.000),
-(4, 6, 5.000),
-(5, 2, 200.000),
+(2, 5, 200.000),
+(2, 9, 100.000),
+(2, 10, 5.000),
+(2, 12, 12.000),
+(3, 1, 500.000),
+(3, 2, 80.000),
+(3, 3, 2.000),
+(3, 4, 70.000),
+(3, 5, 200.000),
+(3, 6, 10.000),
+(3, 7, 6.000),
+(4, 1, 280.000),
+(4, 2, 150.000),
+(4, 3, 2.000),
+(4, 4, 120.000),
+(4, 8, 60.000),
+(4, 10, 3.000),
+(4, 12, 5.000),
+(5, 1, 250.000),
+(5, 2, 20.000),
 (5, 3, 2.000),
-(5, 4, 100.000),
-(6, 1, 200.000),
-(6, 3, 2.000),
-(6, 7, 5.000),
-(7, 5, 150.000),
-(8, 1, 300.000),
-(8, 2, 150.000),
-(8, 3, 2.000),
-(8, 8, 50.000),
-(13, 2, 200.000),
-(15, 6, 0.020);
+(5, 5, 350.000),
+(5, 10, 3.000),
+(5, 11, 15.000),
+(6, 1, 120.000),
+(6, 2, 220.000),
+(6, 3, 3.000),
+(6, 4, 150.000),
+(6, 15, 60.000),
+(7, 1, 40.000),
+(7, 4, 40.000),
+(7, 5, 600.000),
+(7, 7, 5.000),
+(8, 1, 400.000),
+(8, 3, 4.000),
+(8, 7, 4.000),
+(8, 11, 10.000),
+(9, 1, 260.000),
+(9, 2, 220.000),
+(9, 3, 3.000),
+(9, 5, 200.000),
+(9, 8, 70.000),
+(9, 11, 120.000),
+(9, 12, 10.000),
+(9, 13, 200.000),
+(10, 2, 30.000),
+(10, 4, 20.000),
+(10, 8, 40.000),
+(11, 1, 250.000),
+(11, 2, 120.000),
+(11, 3, 2.000),
+(11, 5, 150.000),
+(11, 8, 35.000),
+(11, 10, 5.000),
+(11, 12, 8.000),
+(11, 14, 100.000),
+(12, 1, 300.000),
+(12, 2, 100.000),
+(12, 3, 1.000),
+(12, 4, 180.000),
+(12, 10, 5.000),
+(12, 12, 4.000);
 
 CREATE TABLE `receita_prod_distrib` (
   `id_receita` int(11) NOT NULL,
@@ -164,19 +219,22 @@ CREATE TABLE `receita_prod_distrib` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `receita_prod_distrib` (`id_receita`, `id_produto`, `quantidade`) VALUES
-(2, '3', 0.200),
-(5, '3', 0.300),
-(7, '5', 0.020),
-(7, '6', 0.005),
-(8, '2', 0.395),
-(12, '2', 0.400),
-(12, '4', 150.000),
-(12, '7', 200.000),
-(13, '6', 149.998),
-(14, '3', 10000.000),
-(14, '4', 100.000),
-(15, '6add781fddc331553c650ae2', 0.200),
-(16, '6add781fddc331553c650ae2', 3.000);
+(1, '6ae6287e151f2ad2972ce7b0', 180.000),
+(2, '6ae6287e151f2ad2972ce7b0', 250.000),
+(3, '6ae62868151f2ad2972ce7af', 200.000),
+(4, '6ae62822151f2ad2972ce7ad', 180.000),
+(5, '6ae6287e151f2ad2972ce7b0', 150.000),
+(6, '6ae62856151f2ad2972ce7ae', 200.000),
+(7, '6ae62809151f2ad2972ce7ac', 150.000),
+(8, '6ae62809151f2ad2972ce7ac', 200.000),
+(9, '6ae62809151f2ad2972ce7ac', 200.000),
+(9, '6ae62822151f2ad2972ce7ad', 200.000),
+(10, '6add781fddc331553c650ae2', 300.000),
+(10, '6ae627cb151f2ad2972ce7aa', 80.000),
+(10, '6ae627ef151f2ad2972ce7ab', 395.000),
+(10, '6ae628a0151f2ad2972ce7b2', 100.000),
+(11, '6ae62868151f2ad2972ce7af', 250.000),
+(12, '6ae62856151f2ad2972ce7ae', 150.000);
 
 CREATE TABLE `relatorio` (
   `id` int(11) NOT NULL,
@@ -203,7 +261,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `criado_em`) VALUES
 (1, 'Administrador', 'admin@pi.com', '$2y$10$xm0wZBB1VY8hQ7KrTR2NAumHx.MfcqmYm/dC7U/adaLgFOihlAmbm', 'ADMIN', 1, '2026-06-29 00:46:12'),
 (2, 'Carlos Mendes', 'carlos@pi.com', '$2y$10$RDfA.KsSn0iFH7/Z8/TqJOIGCAh6LN5eHij4/cBGi07KTQLlq1GK6', 'CULINARISTA', 1, '2026-06-29 00:46:12'),
-(3, 'Fernanda Lima', 'fernanda@pi.com', '$2b$10$j9vZgwl.V9MNMFiZ/FwnxuYyxmMJ7xk3JsHfxZ0ODduI5gzTUI60G', 'CULINARISTA', 1, '2026-06-29 00:46:12'),
+(3, 'Fernanda Lima', 'fernanda@pi.com', '$2y$10$wwVZibg5Z241Bg6ZIC5BKOED.PqJlSTY8W/aHYXCJWfyfRyfmOlM6', 'CULINARISTA', 1, '2026-06-29 00:46:12'),
 (4, 'Roberto Souza', 'roberto@pi.com', '$2b$10$j9vZgwl.V9MNMFiZ/FwnxuYyxmMJ7xk3JsHfxZ0ODduI5gzTUI60G', 'CULINARISTA', 1, '2026-06-29 00:46:12'),
 (5, 'Padaria Estrela', 'estrela@pi.com', '$2y$10$V3Poa6ACLxdZKEIVuS9VCusmmClgv8x4ZTY/5nhgXBnDdWm8qIkAu', 'CLIENTE', 1, '2026-06-29 00:46:12'),
 (6, 'Restaurante Sabor', 'sabor@pi.com', '$2b$10$j9vZgwl.V9MNMFiZ/FwnxuYyxmMJ7xk3JsHfxZ0ODduI5gzTUI60G', 'CLIENTE', 1, '2026-06-29 00:46:12'),
@@ -293,13 +351,13 @@ ALTER TABLE `categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 ALTER TABLE `ingrediente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 ALTER TABLE `produto_distrib`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 ALTER TABLE `receita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 ALTER TABLE `relatorio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
@@ -337,4 +395,6 @@ ALTER TABLE `visita`
   ADD CONSTRAINT `fk_visita_culin` FOREIGN KEY (`id_culin`) REFERENCES `culinarista` (`id_culin`);
 COMMIT;
 
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

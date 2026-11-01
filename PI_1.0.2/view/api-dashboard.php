@@ -16,17 +16,17 @@ function responder(int $status, array $dados): void
 }
 
 // So aceita GET, qualquer outro método recebe 405
-if($_SERVER['REQUEST_METHOD'] !== 'GET') {
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     header('Allow: GET');
     responder(405, ['erro' => 'Use o método GET.']);
 }
 
 
 //Responde com uma mensagem em JSON
-if(!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['usuario_id'])) {
     responder(401, ['erro' => 'Faça login para continuar.']);
-} 
-if(($_SESSION['usuario_tipo'] ?? '') !== 'CULINARISTA') {
+}
+if (($_SESSION['usuario_tipo'] ?? '') !== 'CULINARISTA') {
     responder(403, ['erro' => 'Apenas culinaristas podem acessar este recurso.']);
 }
 
@@ -47,7 +47,7 @@ try {
         FROM receita_prod_distrib rp
         JOIN receita r ON r.id = rp.id_receita
         WHERE r.id_usuario = :usuario_id"
-   ); 
+    );
 
     $stmt->execute([':usuario_id' => $usuarioId]);
     $linhasProdutos = $stmt->fetchAll();
@@ -55,25 +55,26 @@ try {
     $produtosPorReceita = [];
     foreach ($linhasProdutos as $linha) {
         $produtosPorReceita[(int) $linha['id_receita']][] = [
-            'id_produto' => $linha['id_produto'],   
+            'id_produto' => $linha['id_produto'],
             'quantidade' => (float)$linha['quantidade']
         ];
     }
 
     $saida = [];
+
+    error_log(print_r(array_keys($produtosPorReceita), true));
+
     foreach ($receitas as $r) {
         $saida[] = [
-        'id'                     => (int) $r['id'],
+            'id'                 => (int) $r['id'],
             'nome'               => $r['nome'],
             'custo_ingredientes' => (float) $r['custo_ingredientes'],
-            'produtos'           => $produtosPorReceita['id_receita'] ?? [],
+            'produtos'           => $produtosPorReceita[(int) $r['id']] ?? [],
         ];
     }
 
     responder(200, ['receitas' => $saida]);
-   
 } catch (Throwable $e) {
     error_log('api-dashboard: ' . $e->getMessage());
     responder(500, ['erro' => 'Erro interno. Tente novamente mais tarde.']);
 }
-?>
