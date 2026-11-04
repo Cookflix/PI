@@ -8,6 +8,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once '../classes/conexao.php';
+/** @var PDO $pdo */
 require_once '../classes/Usuario.php';
 require_once '../crud/UsuarioCrud.php';
 
