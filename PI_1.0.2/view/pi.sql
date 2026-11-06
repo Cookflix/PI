@@ -212,6 +212,12 @@ INSERT INTO `receita_ingrediente` (`id_receita`, `id_ingrediente`, `quantidade`)
 (12, 10, 5.000),
 (12, 12, 4.000);
 
+CREATE TABLE `receita_passo` (
+  `id_receita` int(11) NOT NULL,
+  `ordem` int(11) NOT NULL,
+  `descricao` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE `receita_prod_distrib` (
   `id_receita` int(11) NOT NULL,
   `id_produto` char(24) NOT NULL,
@@ -329,6 +335,9 @@ ALTER TABLE `receita_ingrediente`
   ADD PRIMARY KEY (`id_receita`,`id_ingrediente`),
   ADD KEY `fk_receitaingred_ingrediente` (`id_ingrediente`);
 
+ALTER TABLE `receita_passo`
+  ADD PRIMARY KEY (`id_receita`,`ordem`);
+
 ALTER TABLE `receita_prod_distrib`
   ADD PRIMARY KEY (`id_receita`,`id_produto`),
   ADD KEY `fk_receitaprod_produto` (`id_produto`);
@@ -363,7 +372,7 @@ ALTER TABLE `relatorio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 ALTER TABLE `visita`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
@@ -383,6 +392,9 @@ ALTER TABLE `receita`
 ALTER TABLE `receita_ingrediente`
   ADD CONSTRAINT `fk_receitaingred_ingrediente` FOREIGN KEY (`id_ingrediente`) REFERENCES `ingrediente` (`id`),
   ADD CONSTRAINT `fk_receitaingred_receita` FOREIGN KEY (`id_receita`) REFERENCES `receita` (`id`);
+
+ALTER TABLE `receita_passo`
+  ADD CONSTRAINT `fk_receitapasso_receita` FOREIGN KEY (`id_receita`) REFERENCES `receita` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `receita_prod_distrib`
   ADD CONSTRAINT `fk_receitaprod_receita` FOREIGN KEY (`id_receita`) REFERENCES `receita` (`id`);

@@ -3,9 +3,8 @@
 session_start();
 
 // Ativa exibição de erros caso ocorra algum outro problema
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 
 require_once '../classes/conexao.php';
 /** @var PDO $pdo */
@@ -22,16 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($usuario) {
     $senhaValida = password_verify($senha, $usuario['senha']);
 
-    if (!$senhaValida && hash_equals((string) $usuario['senha'], $senha)) {
-      $senhaValida = true;
-      $executaCrud->atualizarSenha((int) $usuario['id'], password_hash($senha, PASSWORD_DEFAULT));
-    }
+          if ($senhaValida) {
+      session_regenerate_id(true);   
 
-    if ($senhaValida) {
       $_SESSION['usuario_id'] = $usuario['id'];
       $_SESSION['usuario_nome'] = $usuario['nome'];
       $_SESSION['usuario_tipo'] = $usuario['tipo'];
-
+      
       // CORREÇÃO AQUI: Verificando as strings textuais do ENUM/Banco
       if ($usuario['tipo'] === 'CLIENTE') {
         header("Location: cliente.php");

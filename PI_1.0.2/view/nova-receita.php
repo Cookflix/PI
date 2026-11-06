@@ -304,8 +304,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </template>
                         </div>
+                        <div id="aviso-api" hidden>
+                            <p>Produtos do distribuidor indisponíveis no momento. Você ainda pode usar os ingredientes.</p>
+                        </div>
                     </div>
-
+                    
                     <div class="list-block">
                         <div class="list-block__header">
                             <label>Modo de Preparo *</label>

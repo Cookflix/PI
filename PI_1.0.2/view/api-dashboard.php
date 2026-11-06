@@ -62,13 +62,11 @@ try {
 
     $saida = [];
 
-    error_log(print_r(array_keys($produtosPorReceita), true));
-
     foreach ($receitas as $r) {
         $saida[] = [
             'id'                 => (int) $r['id'],
             'nome'               => $r['nome'],
-            'rendimento'         => (String) $r['rendimento'],
+            'rendimento'         => (string) $r['rendimento'],
             'custo_ingredientes' => (float) $r['custo_ingredientes'],
             'produtos'           => $produtosPorReceita[(int) $r['id']] ?? [],
         ];

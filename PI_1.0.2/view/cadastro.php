@@ -2,10 +2,9 @@
 // view/cadastro.php
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 
-require_once '../classes/conexao.php';
 require_once '../classes/Usuario.php';
 require_once '../crud/UsuarioCrud.php';
 require_once '../classes/conexao.php';

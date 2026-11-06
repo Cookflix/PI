@@ -18,6 +18,7 @@ $usuario = $_SESSION['usuario_nome'];
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../css/styles.css?v=<?php echo time(); ?>" />
+  <link rel="stylesheet" href="../css/widget.css?v=<?php echo time(); ?>" />
 </head>
 
 <body>
@@ -112,6 +113,37 @@ $usuario = $_SESSION['usuario_nome'];
           </a>
         </div>
 
+        <div class="card">
+          <div class="search">
+            <input type="text" name="" id="" placeholder="enter city name" spellcheck="false">
+            <button><img src="../img/images/search.png"></button>
+          </div>
+          <div class="error">
+            <p>Cidade inválida</p>
+          </div>
+          <div class="weather">
+            <img src="../img/images/rain.png" class="weather-icon">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">New York</h2>
+            <div class="details">
+              <div class="col">
+                <img src="../img/images/humidity.png">
+                <div>
+                  <p class="humidity">50%</p>
+                  <p>Humidade</p>
+                </div>
+              </div>
+              <div class="col">
+                <img src="../img/images/wind.png">
+                <div>
+                  <p class="wind">15 km/h</p>
+                  <p>Velocidade do Vento</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- TABELAS INFERIORES -->
         <div class="tables-grid">
           <div class="table-box">
@@ -167,6 +199,7 @@ $usuario = $_SESSION['usuario_nome'];
     </main>
   </div>
   <script src="dashboard.js?v=<?= time() ?>" defer></script>
+  <script src="weather.js?v=<?= time() ?>" defer></script>
   <!--O defer manda o navegador executar o arquivo só depois de ler o HTML inteiro, então os getElementById já encontram a tabela.
 O  time() evita que o navegador reaproveite uma versão antiga do arquivo .-->
 </body>

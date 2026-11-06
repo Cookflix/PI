@@ -104,12 +104,12 @@ final class UsuarioService
         $senhaValida = password_verify($senha, $usuario['senha']);
 
         // Compatibilidade temporária com registros antigos em texto puro.
-        if (!$senhaValida && hash_equals((string) $usuario['senha'], $senha)) {
-            $senhaValida = true;
-            $this->repository->atualizarSenha(
-                (int) $usuario['id'],
-                password_hash($senha, PASSWORD_DEFAULT)
-            );
+       if ($senhaValida) {
+      session_regenerate_id(true);   
+
+      $_SESSION['usuario_id'] = $usuario['id'];
+      $_SESSION['usuario_nome'] = $usuario['nome'];
+      $_SESSION['usuario_tipo'] = $usuario['tipo'];
         }
 
         return $senhaValida ? $usuario : null;
