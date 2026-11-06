@@ -1227,6 +1227,7 @@ p a:hover {
 
 .gerencial-section {
   display: flex !important;
+  align-items: center;
   flex-direction: column !important;
   gap: 24px !important;
   width: 100% !important;

@@ -47,7 +47,7 @@ $usuario = $_SESSION['usuario_nome'];
     <main class="dashboard-layout">
       <section class="hero-panel">
         <div>
-          <h2>Olá, <?= htmlspecialchars($usuario) ?> ! <span>👋</span></h2>
+          <h2>Olá, <?= htmlspecialchars($usuario) ?> ! </h2>
           <p>Gerencie suas receitas e acompanhe o desempenho</p>
         </div>
         <a href="nova-receita.php" class="button button--primary">+ Nova Receita</a>
@@ -115,7 +115,7 @@ $usuario = $_SESSION['usuario_nome'];
 
         <div class="card">
           <div class="search">
-            <input type="text" name="" id="" placeholder="enter city name" spellcheck="false">
+            <input type="text" name="" id="" placeholder="Digite o nome da Cidade" spellcheck="false">
             <button><img src="../img/images/search.png"></button>
           </div>
           <div class="error">

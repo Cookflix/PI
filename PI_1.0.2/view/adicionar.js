@@ -77,6 +77,6 @@ fetch("http://localhost:3000/api/ingredientes")
             .forEach((select) => preencherProdutos(select, disponiveis));
     })
     .catch(() => {
-        document.getElementById("aviso-api").hidden = false;
+        document.getElementById("aviso-api").hidden = true;
     });
 

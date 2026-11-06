@@ -2,7 +2,7 @@
 $tipo_banco = "mysql";
 $servidor = "localhost";
 $porta    = "3306";
-$banco    = "PI";
+$banco    = "pi";
 $usuario  = "root";
 $senha    = "";
 
