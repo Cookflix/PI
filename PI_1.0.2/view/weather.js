@@ -1,4 +1,4 @@
-// ATENÇÃO: gere uma chave NOVA no OpenWeather e cole aqui (a antiga ficou exposta no zip).
+
 const apiKey = "e84ce3c5c9398e0015aece3a7859618d";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=pt_br&q=";
 
@@ -52,7 +52,7 @@ async function checkWeather(city) {
         // Com units=metric a API entrega o vento em m/s; x 3,6 converte para km/h
         document.querySelector(".wind").textContent = Math.round(data.wind.speed * 3.6) + " km/h";
 
-        const arquivo = icones[data.weather[0].main];
+        const arquivo = icones[data.weather[0].main] || "default.png";
         if (arquivo) weatherIcon.src = "../img/images/" + arquivo;
 
         weatherBox.style.display = "block";

@@ -123,20 +123,20 @@ $usuario = $_SESSION['usuario_nome'];
           </div>
           <div class="weather">
             <img src="../img/images/rain.png" class="weather-icon">
-            <h1 class="temp">22°c</h1>
-            <h2 class="city">New York</h2>
+            <h1 class="temp"></h1>
+            <h2 class="city"></h2>
             <div class="details">
               <div class="col">
                 <img src="../img/images/humidity.png">
                 <div>
-                  <p class="humidity">50%</p>
+                  <p class="humidity"></p>
                   <p>Humidade</p>
                 </div>
               </div>
               <div class="col">
                 <img src="../img/images/wind.png">
                 <div>
-                  <p class="wind">15 km/h</p>
+                  <p class="wind"></p>
                   <p>Velocidade do Vento</p>
                 </div>
               </div>

@@ -304,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </template>
                         </div>
-                        <div id="aviso-api" hidden>
+                        <div id="aviso-api"hidden>
                             <p>Produtos do distribuidor indisponíveis no momento. Você ainda pode usar os ingredientes.</p>
                         </div>
                     </div>
@@ -316,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="steps-container">
                             <div id="passo">
-                                <textarea class="text-area" name="passos[]" placeholder="Passo 1" rows="2" required></textarea>
+                                <textarea class="text-area" name="passos[]" placeholder="Passo" rows="2" required></textarea>
                                 <template>
                                     <div class="template-item">
                                         <textarea class="text-area" name="passos[]" placeholder="Passo" rows="2" required></textarea>
